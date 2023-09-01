@@ -1,0 +1,96 @@
+:root {
+    --backgroundColor: rgb(192, 192, 192);
+    --textColor: rgb(44, 44, 44);
+    --highlightColor: rgb(11, 24, 110);
+}
+
+@font-face {
+    font-family: helvetica;
+    src: url(./fonts/Helvetica.ttf);
+}
+
+@font-face {
+    font-family: helvetica-bold;
+    src: url(./fonts/Helvetica-Bold.ttf);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    background-color: var(--backgroundColor);
+    height: 100%;
+    font-family: Helvetica;
+    padding: 32px;
+    color: var(--textColor);
+    font-size: 125%;
+}
+
+h1 {
+    font-family: Helvetica-Bold;
+}
+
+header {
+    text-align: center;
+}
+
+a {
+    color: var(--highlightColor);
+}
+
+a:hover {
+    opacity: 0.5;
+}
+
+section {
+    margin-top: 32px;
+    margin-bottom: 64px;
+}
+
+ul {
+    margin-top: 8px;
+    margin-left: 24px;
+}
+
+hr {
+    border: 0;
+    border-top: solid var(--textColor) 1px;
+}
+
+.gallery {
+    margin-top: 8px;
+    margin-left: 8px;
+}
+
+.gallery img {
+    max-height: 480px;
+    cursor: pointer;
+}
+
+.gallery img:hover {
+    opacity: 0.8;
+}
+
+.fullscreen-image-container, .fullscreen-shadow {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+.fullscreen-shadow {
+    background-color: black;
+    opacity: 0.5;
+}
+
+.fullscreen-image-container {
+    text-align: center;
+    z-index: 2;
+    cursor: pointer;
+}
+
