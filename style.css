@@ -68,6 +68,7 @@ hr {
 .gallery img {
     max-height: 480px;
     cursor: pointer;
+    border-radius: 8px;
 }
 
 .gallery img:hover {
