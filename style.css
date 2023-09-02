@@ -68,6 +68,7 @@ hr {
 .gallery img {
     max-height: 480px;
     cursor: pointer;
+    clip-path: inset(1px 1px 1px 1px); 
     border-radius: 8px;
 }
 
@@ -94,6 +95,10 @@ hr {
     cursor: pointer;
     align-items: center;
     justify-content: center;
+}
+
+.fullscreen-image-container img {
+    clip-path: inset(1px 1px 1px 1px); 
 }
 
 @media (max-width: 768px) {
