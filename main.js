@@ -2,49 +2,36 @@ const fullscreenImageContainer = document.querySelector("div.fullscreen-image-co
 const fullscreenImage = document.querySelector("div.fullscreen-image-container img")
 const fullscreenShadow = document.querySelector("div.fullscreen-shadow")
 const html = document.querySelector("html")
+let imageHeight, imageWidth
 
-let imageWidth, imageHeight
-
-document.querySelectorAll("div.gallery img").forEach(image => {
-    image.addEventListener("click", () => {
-        fullscreenImage.onload = () => {
-            imageWidth = fullscreenImage.width;
-            imageHeight = fullscreenImage.height;
-
-            fullscreenShadow.style.display = "unset";
-            fullscreenImageContainer.style.display = "unset";
-            html.style.overflow = "hidden";
+document.querySelectorAll(".gallery img").forEach(image => {
+        image.addEventListener("click", () => {
+            imageHeight = image.height
+            imageWidth = image.width
+            fullscreenShadow.style.display = "unset"
+            fullscreenImageContainer.style.display = "flex"
+            fullscreenImage.src = image.src
+            html.style.overflowY = "hidden"
             handleResize()
-        };
-
-        fullscreenImage.src = image.src;
-    });
-});
+        })
+})
 
 fullscreenImageContainer.addEventListener("click", () => {
-    fullscreenShadow.style.display = "none";
-    fullscreenImageContainer.style.display = "none";
-    html.style.overflowY = "scroll";
-});
+    fullscreenShadow.style.display = "none"
+    fullscreenImageContainer.style.display = "none"
+    html.style.overflowY = "scroll"
+})
 
-function handleResize() {
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
-
-    if (imageWidth && imageHeight) {
-        if (windowWidth > windowHeight) {
-            if (imageWidth / imageHeight > windowWidth / windowHeight) {
-                fullscreenImage.style.width = "100vw";
-                fullscreenImage.style.height = "unset";
-                let verticalDelta = windowHeight / 2 - fullscreenImage.height / 2;
-                if (fullscreenImage.height >= windowHeight)  verticalDelta = 0; 
-                fullscreenImage.style.transform = `translateY(${verticalDelta}px)`;
-            } else {
-                fullscreenImage.style.width = "unset";
-                fullscreenImage.style.height = "100vh";
-                fullscreenImage.style.transform = ""; 
-            }
-        }
+function handleResize () {
+    const windowHeight = window.innerHeight
+    const windowWidth = window.innerWidth
+    if(windowWidth/windowHeight > imageWidth/imageHeight) {
+        fullscreenImage.style.height = "100vh"
+        fullscreenImage.style.width = "unset"
+    } 
+    else {
+        fullscreenImage.style.height = "unset"
+        fullscreenImage.style.width = "100%"
     }
 }
 

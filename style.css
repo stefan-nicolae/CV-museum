@@ -89,9 +89,10 @@ hr {
 }
 
 .fullscreen-image-container {
-    text-align: center;
     z-index: 2;
     cursor: pointer;
+    align-items: center;
+    justify-content: center;
 }
 
 @media (max-width: 768px) {
