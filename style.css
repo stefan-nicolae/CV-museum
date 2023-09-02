@@ -94,3 +94,44 @@ hr {
     cursor: pointer;
 }
 
+@media (max-width: 768px) {
+    .container { 
+        font-size: 100%;
+        padding: 8px;
+    }
+
+    .gallery img {
+        max-height: unset;
+        width: calc(50% - 4px);
+        cursor: pointer;
+    }
+
+    .gallery {
+        margin-left: 0;
+        margin-top: 16px;
+    }
+
+    .gallery .single img {
+        width: 100%;
+    }
+
+    section {
+        margin-bottom: 32px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .gallery .single img {
+        width: 64%;
+    }
+
+    .gallery img {
+        max-height: unset;
+        width: 32%;
+        cursor: pointer;
+    }
+
+    .container { 
+        padding: 16px;
+    }
+}
