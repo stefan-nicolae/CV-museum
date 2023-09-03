@@ -102,6 +102,10 @@ hr {
     clip-path: inset(1px 1px 1px 1px); 
 }
 
+li, span {
+    line-height: 40px;
+}
+
 @media (max-width: 768px) {
     .container { 
         font-size: 100%;
@@ -125,6 +129,10 @@ hr {
 
     section {
         margin-bottom: 32px;
+    }
+
+    li, span {
+        line-height: 32px;
     }
 }
 
