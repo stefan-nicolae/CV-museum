@@ -56,14 +56,14 @@
 
         const CHATID = generateString(15)
         const PRODUCTION = true
-        const CHATDOMAIN = PRODUCTION ? "https://cv-chat-app.netlify.app" : "http://localhost:3000/"
+        const CHATDOMAIN = PRODUCTION ? "https://cv-chess-app.netlify.app/" : "http://localhost:3000/"
         function prepareChatFrame(id, CHATID) {
             const ifrm = document.createElement("iframe")
             
             ifrm.setAttribute("height", "100%")
             ifrm.setAttribute("width", "100%")
             ifrm.setAttribute("src",
-                `${CHATDOMAIN}/nologin+chatID=[${CHATID}]`
+                `${CHATDOMAIN}/?roomID=${CHATID}`
             )
             ifrm.setAttribute("id", id)
             return ifrm
