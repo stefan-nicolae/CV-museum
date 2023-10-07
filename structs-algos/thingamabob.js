@@ -52,7 +52,6 @@ $(document).ready(() => {
         } else {
             //you have the input and the output
             //you can manipulate the output however you want
-            //add buttons to it here
         }   
     }
     
