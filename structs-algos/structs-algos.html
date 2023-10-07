@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        @font-face {
+            font-family: helvetica;
+            src: url(../fonts/Helvetica.ttf);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            background-color: gray;
+            height: 1000px;
+            min-height: 100vh;
+            font-family: Helvetica;
+            padding: 64px;
+        }
+
+        h1  {
+            color: white;
+            user-select: none;
+            margin-bottom: 8px;
+        }
+ 
+        button {
+            padding: 4px 8px;
+            border-radius: 0;
+            border: none;
+            background-color: rgb(71, 71, 71);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            user-select: none;
+            text-transform: capitalize;
+        }
+
+        button:hover {
+            background-color: rgb(39, 39, 39);
+        }
+
+        section {
+            padding: 8px;
+            height: 320px;
+            border: 1px solid rgb(71, 71, 71);
+            display: flex;
+            flex-direction: column;
+        }
+
+        section menu {
+            display: flex;
+        }
+
+        section menu button {
+            margin-bottom: 8px;
+            margin-left: 8px;
+            width: 64px;
+        }
+
+        button.highlight {
+            background-color: rgb(104, 0, 0);
+        }
+
+        section menu input {
+            padding: 4px 8px;
+            margin-bottom: 8px;
+            flex: 1;
+        }
+
+        section .screen {
+            user-select: none;
+            padding: 8px;
+            flex: 1;
+            background-color: rgb(187, 187, 187);
+            width: 100%;
+            line-height: 24px;
+            overflow-y: scroll;
+        }
+
+        ul {
+            color: white;
+            margin-bottom: 8px;
+            margin-top: 16px;
+            margin-left: 24px;
+            line-height: 24px;
+        }
+
+
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+            <h1>Data Structures</h1>
+
+            <nav>
+                <button>binary search tree</button>
+                <button>double linked list</button>
+                <button>graph</button>
+                <button>hashtables</button>
+            </nav>
+
+            <section>
+                <menu>
+                    <input type="text">
+                    <button>Go!</button>
+                </menu>
+                <div class="screen"></div>
+            </section>
+            <br>
+            <h1>Algorithms</h1>
+            <ul>
+                <li>1. Write numbers separated by commas</li>
+                <li>2. Select a sorting algorithm</li>
+                <li>3. Go!</li>
+                <li>Copy the example numbers: <b>42 17 56 33 91 24 8 69 12 5</b></li>
+            </ul>
+            <nav>
+                <button>bubble sort</button>
+                <button>merge sort</button>
+                <button>quick sort</button>
+            </nav>
+
+            <section>
+                <menu>
+                    <input type="text" placeholder="Example: 42 17 56 33 91 24 8 69 12 5">
+                    <button>Go!</button>
+                </menu>
+                <div class="screen"></div>
+            </section>
+    </div>
+    <script type="module" src="./algorithms/bubblesort.js"></script>
+    <script type="module" src="./thingamabob.js"></script>
+</body>
+</html>
