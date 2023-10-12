@@ -91,8 +91,14 @@
             margin-top: 16px;
             margin-left: 24px;
             line-height: 24px;
+            user-select: none;
         }
 
+        span.copy {
+            background-color: rgb(71, 71, 71);
+            padding: 0 4px;
+            user-select: all;
+        }
 
     </style>
 </head>
@@ -121,7 +127,7 @@
                 <li>1. Write numbers separated by commas</li>
                 <li>2. Select a sorting algorithm</li>
                 <li>3. Go!</li>
-                <li>Copy the example numbers: <b>42 17 56 33 91 24 8 69 12 5</b></li>
+                <li>Copy the example numbers: <span class="copy">42 17 56 33 91 24 8 69 12 5</span></li>
             </ul>
             <nav>
                 <button>bubble sort</button>
