@@ -19,7 +19,7 @@
 
         .container {
             background-color: gray;
-            height: 1000px;
+            height: 1200px;
             min-height: 100vh;
             font-family: Helvetica;
             padding: 64px;
@@ -76,7 +76,6 @@
         }
 
         section .screen {
-            user-select: none;
             padding: 8px;
             flex: 1;
             background-color: rgb(187, 187, 187);
@@ -100,13 +99,20 @@
             user-select: all;
         }
 
+        .monospace {
+            font-family: monospace;
+        }
+
     </style>
 </head>
 <body>
     
     <div class="container">
             <h1>Data Structures</h1>
-
+            <ul>
+                <li>The display looks the best with digits</li>
+                <li>Copy the example numbers: <span class="copy">4 1 5 3 9 2 8 6 1 5</span></li>
+            </ul>
             <nav>
                 <button>binary search tree</button>
                 <button>double linked list</button>

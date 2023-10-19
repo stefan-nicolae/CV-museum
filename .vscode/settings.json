@@ -1,0 +1,26 @@
+{
+    "workbench.colorCustomizations": {
+        "editorBracketHighlight.foreground1": "#636363",
+        "editorBracketHighlight.foreground2": "#636363",
+        "editorBracketHighlight.foreground3": "#636363",
+        "editorBracketHighlight.foreground4": "#636363",
+        "editorBracketHighlight.foreground5": "#636363",
+        "editorBracketHighlight.foreground6": "#636363",
+        "statusBar.background" : "#1A1A1A",
+        "statusBar.noFolderBackground" : "#1A1A1A",
+        "statusBar.debuggingBackground": "#1A1A1A",
+        "activityBarBadge.background": "#1A1A1A",
+        "statusBar.foreground": "#999999",
+        "terminal.ansiBrightBlue": "#414141"
+    },
+    "editor.tokenColorCustomizations": {
+        // "keywords": "#d7c2c2",  // Set the color for keywords (e.g., "if", "else", "for")
+        // "strings": "#d7c2c2",   // Set the color for strings (e.g., "Hello, World!")
+        "comments": "#636363",  // Set the color for comments (e.g., // This is a comment)
+        // "numbers": "#d7c2c2",   // Set the color for numbers (e.g., 12345)
+        "variables": "#00ac78", // Set the color for variables (e.g., varName)
+        // "functions": "#d7c2c2", // Set the color for function names (e.g., functionName())
+        // "types": "#d7c2c2"      // Set the color for data types (e.g., int, string)
+    }
+    
+}
