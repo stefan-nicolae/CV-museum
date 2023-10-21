@@ -34,6 +34,17 @@
         .container .chats iframe:first-of-type {
             margin-right: 10px;
         }
+
+        @media (max-width: 768px) and (orientation: portrait) {
+            .container .chats {
+                flex-direction: column;
+            }
+
+            .container .chats iframe {
+                height: 700px;
+                margin-bottom: 20px;
+            }
+        }
     </style>
 </head>
 <body>
