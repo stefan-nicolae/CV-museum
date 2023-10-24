@@ -127,6 +127,10 @@ li, span {
 }
 
 @media (max-width: 768px) {
+    .title-description {
+        width: 75%;
+    }
+    
     .container { 
         font-size: 100%;
         padding: 8px;
