@@ -29,6 +29,17 @@
     font-size: 125%;
 }
 
+.title-description {
+    width: 50%;
+    margin: auto;
+    margin-top: 8px;
+}
+
+.title-description span {
+    font-size: 75%;
+    line-height: 12px;
+}
+
 h1 {
     font-family: Helvetica-Bold;
 }

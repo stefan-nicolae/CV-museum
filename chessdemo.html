@@ -10,6 +10,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            overflow-y: hidden;
         }
 
         body {
@@ -36,13 +37,8 @@
         }
 
         @media (max-width: 768px) and (orientation: portrait) {
-            .container .chats {
-                flex-direction: column;
-            }
-
-            .container .chats iframe {
-                height: 700px;
-                margin-bottom: 20px;
+            .chats {
+                width: 170%;
             }
         }
     </style>
