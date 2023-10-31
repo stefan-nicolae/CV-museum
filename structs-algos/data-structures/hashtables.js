@@ -1,7 +1,7 @@
 import {DoubleLinkedList} from "./double-linked-list.js"
 import sha256 from 'crypto-js/sha256.js';
 
-class HashTable {
+export class HashTable {
     constructor(){
         this.data = []
         for(let i = 0; i < 99; i++) 

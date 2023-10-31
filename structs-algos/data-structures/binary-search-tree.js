@@ -4,6 +4,7 @@ class Node {
         this.parent = parent
         this.leftNode = undefined
         this.rightNode = undefined
+        this.removed = false
     }
 
     disinheritSelf() {
@@ -21,25 +22,31 @@ class Node {
     }
 }
 
-class BinarySearchTree {
+export class BinarySearchTree {
     insert(value) {
         if(!this.firstNode) {
             this.firstNode = new Node(value)
-            return
+            return this.firstNode
         }
         const propagate = (node = this.firstNode) => {
             if(value <= node.value) {
-                if(!node.leftNode) node.leftNode = new Node(value, node)
-                else propagate(node.leftNode)
+                if(!node.leftNode) {
+                    node.leftNode = new Node(value, node)
+                    return node.leftNode
+                }
+                else return propagate(node.leftNode)
             } else {
-                if(!node.rightNode) node.rightNode = new Node(value, node)
-                else propagate(node.rightNode)
+                if(!node.rightNode) {
+                    node.rightNode = new Node(value, node)
+                    return node.rightNode
+                }
+                else return propagate(node.rightNode)
             }
         }
-        propagate()
+        return propagate()
     }
 
-    display() {
+    display(log=(msg)=>{console.log(msg)}) {
         const findOutDepth = () => {
             let maxDepth = 1
             const propagate = (node = this.firstNode, depth = 1) => {
@@ -82,66 +89,53 @@ class BinarySearchTree {
                 string += "_".repeat(spaces)
                 string += " ".repeat(mid)
             })
-            console.log(string)
+            log(string)
             printTree(level - 1)
         }   
         printTree()
     }      
 
     find(value) {
-        const resultArr = []
-        const propagate = (node = this.firstNode) => {
-            if(node.value === value) resultArr.push(node)
-            if(node.leftNode.value <= node.rightNode.value) propagate(node.leftNode)
-            else propagate(node.leftNode)
-        }
-        propagate()
-        return resultArr
-    }
-
-    _findSmallestNodeOnRight() {
-        const propagate = (node=this.firstNode.rightNode) => {
-            if(node.rightNode && node.rightNode.value < node.value) {
-                propagate(node.rightNode)
-            } else if(node.leftNode && node.leftNode.value < node.value) { 
-                propagate(node.leftNode)
+        let node = this.firstNode;
+    
+        while (node) {
+            if (node.value === value && !node.removed) {
+                return node; 
+            }
+    
+            if (value < node.value) {
+                node = node.leftNode; 
             } else {
-                return node
+                node = node.rightNode; 
             }
         }
-        return propagate()
+    
+        return null; 
     }
 
     remove(node) {
         if(!node) return
-        if(!node.parent) {
-            if(node.rightNode) {
-                node.replaceSelf(this._findSmallestNodeOnRight())
-            } else {
-                node.replaceSelf(node.leftNode)
-            }
-            return
-        }
-
-        const children = [node.leftNode, node.rightNode].filter(value => !value)
-
-        if(!children.length) {
+        const children = [node.leftNode, node.rightNode].filter(node => node)
+        if(children.length === 0) {
+            if(node === node.firstNode) return
             node.disinheritSelf()
-            return
-        } else if (children[0] && !children[1]) {
-            node.replaceSelf(children[0])
-            return
-        } else {
-            //children[1] bigger than children[0]
-            children[1].leftNode = children[0]
-            node.replaceSelf(children[1])
+        } else if (children.length === 1) {
+            if(this.firstNode !== node) node.replaceSelf(children[0])
+            else this.firstNode = children[0]
+        } else if(children.length === 2) {
+            if(this.firstNode !== node) node.replaceSelf(children[1])
+            else this.firstNode = children[1]
+            const newNode = this.insert(children[0].value)
+            newNode.leftNode = children[0].leftNode
+            newNode.rightNode = children[0].rightNode
         }
+        node.removed = true
     }
 }
  
 //DOCS
 
-//const tree = new BinarySearchTree( first node's value )
+//const tree = new BinarySearchTree()
 
 //tree.insert(value)
 
@@ -155,3 +149,4 @@ class BinarySearchTree {
 
 //tree.remove(node)
     //  removes node
+

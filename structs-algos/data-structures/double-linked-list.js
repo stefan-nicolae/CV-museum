@@ -9,14 +9,7 @@ class Node {
 export class DoubleLinkedList {
     constructor(valuesArray = []) {
         this.lastNode = undefined
-        valuesArray.forEach((value) => {
-            if(!this.lastNode) this.lastNode = new Node(value)
-            else {
-                this.lastNode.nextNode = new Node(value)
-                this.lastNode.nextNode.prevNode = this.lastNode
-                this.lastNode = this.lastNode.nextNode
-            }
-        })
+        valuesArray.forEach(node => this.insert(node))
     }
 
     insert(value, targetNode = this.lastNode) {
@@ -26,8 +19,15 @@ export class DoubleLinkedList {
                 this.lastNode = this.firstNode
                 return
             }
-            
-            if(targetNode === this.lastNode) {
+                       
+            if(targetNode === -1) {
+                const newFirstNode = new Node(value)
+                newFirstNode.nextNode = this.firstNode
+                this.firstNode.prevNode = newFirstNode
+                this.firstNode = newFirstNode
+
+            }
+            else if(targetNode === this.lastNode) {
                 this.lastNode.nextNode = new Node(value, this.lastNode)
                 this.lastNode = this.lastNode.nextNode
             } else {
@@ -80,18 +80,19 @@ export class DoubleLinkedList {
     }
 
     remove(node) {
-        if(node.prevNode) {
-            if(node.nextNode) node.prevNode.nextNode = node.nextNode
-            else node.prevNode.nextNode = undefined
+        if (node.prevNode) {
+          node.prevNode.nextNode = node.nextNode;
+        } else {
+          this.firstNode = node.nextNode;
         }
-        if(node.nextNode) {
-            if(node.prevNode) node.nextNode.prevNode = node.prevNode
-            else node.nextNode.prevNode = undefined
+      
+        if (node.nextNode) {
+          node.nextNode.prevNode = node.prevNode;
         }
-        node.value = undefined
-        node.prevNode = undefined
-        node.nextNode = undefined
-    }   
+        node.prevNode = null;
+        node.nextNode = null;
+      }
+       
 }
 
 //DOCS
@@ -100,7 +101,8 @@ export class DoubleLinkedList {
     //  values should be numbers
 
 //DLL.insert( value, targetNode )
-    // by default, targetNode is the last node in the list
+    //by default, targetNode is the last node in the list
+    //make targetNode -1 to insert at the start
 
 //DLL.getNodeByIndex( index )
     // works like array[ index ] 
@@ -109,4 +111,6 @@ export class DoubleLinkedList {
     // returns the first node that has the value
 
 //remove ( node )
+
+//DLL.toArray()
     

@@ -5,7 +5,7 @@ class Node {
     }
 }
 
-class Graph {
+export class Graph {
     insert(node1, node2, twoWay=true) {
         node1.friends.push(node2)
         if(twoWay) node2.friends.push(node1)

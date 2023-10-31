@@ -1,6 +1,8 @@
 import { bubblesort } from "./algorithms/bubblesort.js";
 import { mergesort } from "./algorithms/mergesort.js";
-import { quicksort } from "./algorithms/quicksort.js";
+import { quicksort } from "./algorithms/quicksort.js"
+import { BinarySearchTree } from "./data-structures/binary-search-tree.js";
+import { DoubleLinkedList } from "./data-structures/double-linked-list.js";
 
 $(document).ready(function() {
     let selectedFirst, selectedLast
@@ -9,12 +11,15 @@ $(document).ready(function() {
     const firstInput = $(".first-input")
     const lastInput = $(".last-input")
     const LOGS = {}
+    let tree, DLL, graph, hashtable
+    let globalID
 
     $("nav:first-of-type button").each(function(index, button) {
         $(button).click(() => {
             $("nav:first-of-type button").removeClass("highlight");
             $(button).addClass("highlight");
             selectedFirst = button.textContent
+            runStructs()
         })
         if(index===0) $(button).click()
     });
@@ -24,10 +29,11 @@ $(document).ready(function() {
             $("nav:last-of-type button").removeClass("highlight");
             $(button).addClass("highlight");
             selectedLast = button.textContent
+            runAlgos()
         })
         if(index===0) $(button).click()
     });
-
+      
     function generateID(length=20) {
         const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         let id = "";
@@ -47,22 +53,151 @@ $(document).ready(function() {
             if(arr) msg = msg.join(' ')
             const msgElement = $('<p>', {'text': msg}).get(0); 
             output.append(msgElement);
-            msgElement.scrollIntoView({ behavior: 'smooth' });
         });
     }
     
+    function addButton(output, title, func) {
+        const button = $(`<button>${title}</button>`);
+        
+        button.on('click', function() {
+            if(output === firstOutput) cleanupFirstOutput()
+            func();
+        });
+        
+        output.append(button);
+    }
+
+    function addInput(output, placeholder, func) {
+        
+        const input = $('<input>').attr('type', 'text').attr('placeholder', placeholder);
+        
+        input.on('input', function() {
+            if(output === firstOutput) cleanupFirstOutput()
+            const inputValue = input.val(); 
+            if(!inputValue) return
+            func(inputValue); 
+        });
+        
+        output.append(input);
+    }
+
+    function setupRun(selected, input, output) {
+        if(!selected || !input.val()) return [null, null]
+        output.empty()
+        const id = generateID()
+        LOGS[id] = []
+        const arr = input.val().split(" ").map(Number)
+        return [id, arr]
+    }
+
+    function stringifyCircular(obj) {
+        const seen = new Map();
+      
+        return JSON.stringify(obj, function(key, value) {
+          if (typeof value === 'object' && value !== null) {
+            if (seen.has(value)) {
+              return '[Circular]';
+            }
+            seen.set(value, true);
+          }
+          return value;
+        });
+    }
+
+    function cleanupFirstOutput() {
+        $(firstOutput).children().not("button, input").remove();
+        LOGS[globalID] = []
+    }
 
     function runStructs() {
-        if(!selectedFirst) return
+        const [id, arr] = setupRun(selectedFirst, firstInput, firstOutput)
+        if(id === null) return
+        globalID = id
+
+        cleanupFirstOutput()
+
+        switch(selectedFirst) {
+            case "binary search tree":
+                tree = new BinarySearchTree() 
+                arr.forEach(nr => {
+                    tree.insert(nr)
+                })
+
+                addButton(firstOutput, "Display", () => {
+                    tree.display(msg => log(msg.replaceAll(" ", "-"), id))
+                    write(firstOutput, id)
+                })
+
+                addButton(firstOutput, "Reload Tree", () => {
+                    tree = new BinarySearchTree() 
+                    arr.forEach(nr => {
+                        tree.insert(nr)
+                    })
+                    $("button:contains('" + "Display" + "')").click()
+                })
+
+                addInput(firstOutput, "find(value)", (inputVal) => {
+                    log(stringifyCircular(tree.find(inputVal)), id)
+                    write(firstOutput, id)
+                })
+
+                addInput(firstOutput, "remove(value)", (inputVal) => {
+                    log("Before: ", id)
+                    tree.display(msg => log(msg.replaceAll(" ", "-"), id))
+                    tree.remove(tree.find(inputVal))
+                    log("After: ", id)
+                    tree.display(msg => log(msg.replaceAll(" ", "-"), id))
+                    write(firstOutput, id)
+                })
+
+                $("button:contains('" + "Display" + "')").click()
+                break
+            case "double linked list":
+                DLL = new DoubleLinkedList(arr)
+
+                addButton(firstOutput, "toArray", () => {
+                    log(DLL.toArray(), id)
+                    write(firstOutput, id, true)
+                })
+
+                addButton(firstOutput, "Reload", () => {
+                    DLL = new DoubleLinkedList(arr)
+                    $("button:contains('" + "toArray" + "')").click()
+                })
+
+                addInput(firstOutput, "insert(value, index [-1 -> length-1])", inputVal => {
+                    let inputArr = inputVal.split(" ")
+                    if(inputArr[1] === "") return
+                    inputArr = inputArr.map(Number)
+                    const value = inputArr[0]
+                    const targetNode = inputArr[1] === -1 ? -1: DLL.getNodeByIndex(inputArr[1])
+                    if(inputArr.length===2){
+                        DLL.insert(value, targetNode)
+                        log(DLL.toArray(), id)
+                        write(firstOutput, id, true)
+                    }
+                })
+                addInput(firstOutput, "getNodeByIndex(index [0 -> length-1])", inputVal => {
+                    log(stringifyCircular(DLL.getNodeByIndex(parseFloat(inputVal))), id)
+                    write(firstOutput, id)
+                })
+                addInput(firstOutput, "find(value)", inputVal => {
+                    log(stringifyCircular(DLL.find(parseFloat(inputVal))), id)
+                    write(firstOutput, id)
+                })
+                addInput(firstOutput, "remove(value)", inputVal => {
+                    DLL.remove(DLL.find(parseFloat(inputVal)))
+                    $("button:contains('" + "toArray" + "')").click()
+                })
+                $("button:contains('" + "toArray" + "')").click()
+                break
+        }
     }
 
     function runAlgos() {
-        if(!selectedLast) return
-        if(!lastInput.val()) return
-        const id = generateID()
-        LOGS[id] = []
-        lastOutput.empty()
-        const arr = lastInput.val().split(" ").map(Number)
+        const [id, arr] = setupRun(selectedLast, lastInput, lastOutput)
+        if(id === null) return
+
         let func
         switch(selectedLast){
             case "bubble sort":
@@ -81,6 +216,7 @@ $(document).ready(function() {
         }
     }
 
-    $("button.go-first").click(() => runStructs())
-    $("button.go-last").click(() => runAlgos())
+    firstInput.on("input", ()=>runStructs())
+    lastInput.on("input", ()=>runAlgos())
+
 });
