@@ -3,6 +3,9 @@ import { mergesort } from "./algorithms/mergesort.js";
 import { quicksort } from "./algorithms/quicksort.js"
 import { BinarySearchTree } from "./data-structures/binary-search-tree.js";
 import { DoubleLinkedList } from "./data-structures/double-linked-list.js";
+import { Graph } from "./data-structures/graph2.js";
+import { Node as GraphNode } from "./data-structures/graph2.js";
+import { networkGraph } from "./thingamajig.js";
 
 $(document).ready(function() {
     let selectedFirst, selectedLast
@@ -83,9 +86,9 @@ $(document).ready(function() {
 
     function setupRun(selected, input, output) {
         if(!selected || !input.val()) return [null, null]
-        output.empty()
         const id = generateID()
         LOGS[id] = []
+        output.empty()
         const arr = input.val().split(" ").map(Number)
         return [id, arr]
     }
@@ -105,11 +108,12 @@ $(document).ready(function() {
     }
 
     function cleanupFirstOutput() {
-        $(firstOutput).children().not("button, input").remove();
+        $(firstOutput).children().filter(":not(button, input)").remove();
         LOGS[globalID] = []
     }
 
     function runStructs() {
+        firstInput.prop("disabled", false);
         const [id, arr] = setupRun(selectedFirst, firstInput, firstOutput)
         if(id === null) return
         globalID = id
@@ -170,7 +174,7 @@ $(document).ready(function() {
                     if(inputArr[1] === "") return
                     inputArr = inputArr.map(Number)
                     const value = inputArr[0]
-                    const targetNode = inputArr[1] === -1 ? -1: DLL.getNodeByIndex(inputArr[1])
+                    const targetNode = inputArr[1] === -1 ? -1 : DLL.getNodeByIndex(inputArr[1])
                     if(inputArr.length===2){
                         DLL.insert(value, targetNode)
                         log(DLL.toArray(), id)
@@ -191,6 +195,35 @@ $(document).ready(function() {
                 })
                 $("button:contains('" + "toArray" + "')").click()
                 break
+            case "graph":
+                graph = new Graph()
+                firstInput.prop("disabled", true);
+
+                addInput(firstOutput, "insertNodePair(v1, v2, twoWay T/F)", inputVal => {
+                    let inputArr = inputVal.split(" ")
+                    if(inputArr.length === 3 && inputArr[2] !== "" && inputArr[2] !== 0) {
+                        const one = parseFloat(inputArr[0])
+                        const two = parseFloat(inputArr[1])
+                        graph.insert(
+                            graph.firstNode ? graph.findNodeByValue(one) : new GraphNode(one),
+                            new GraphNode(two),
+                            inputArr[2] === "T" ? true : false
+                        )
+                        firstOutput.find("input").eq(0).val("");
+                    }
+                    $("button:contains('" + "Display" + "')").click()
+                })
+                addButton(firstOutput, "Reset", () => {
+                    graph = new Graph()
+                    $("button:contains('" + "Display" + "')").click()
+                })
+                addButton(firstOutput, "Display", () => {
+                    firstOutput.append("<p>Made with d3.js</p>")
+                    firstOutput.append("<div class='graph'></div>")
+                    networkGraph(graph.nodeList)
+                })
+                $("button:contains('" + "Display" + "')").click()
+
         }
     }
 

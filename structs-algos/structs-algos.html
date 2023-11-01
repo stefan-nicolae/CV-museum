@@ -82,7 +82,6 @@
             width: 100%;
             line-height: 24px;
             overflow-y: scroll;
-            user-select: none;
             font-family: monospace;
             font-weight: bold;
         }
@@ -93,13 +92,11 @@
             margin-top: 16px;
             margin-left: 24px;
             line-height: 24px;
-            user-select: none;
         }
 
         span.copy {
             background-color: rgb(71, 71, 71);
             padding: 0 4px;
-            user-select: all;
         }
 
         .screen input, .screen button {
@@ -124,10 +121,23 @@
         .screen input::placeholder {
             color: rgb(221, 221, 221);
         }
+
+        .screen > p {
+            user-select: none;
+        }
+
+        h1, ul {
+            user-select: none;
+        }
+
+        .copy {
+            user-select: all;
+        }
     </style>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+
 </head>
 <body>
-    
     <div class="container">
             <h1>Data Structures</h1>
             <ul>
@@ -144,7 +154,6 @@
             <section>
                 <menu>
                     <input class="first-input" type="text" value="4 1 5 3 9 2 8 6 1 5" placeholder="Example: 4 1 5 3 9 2 8 6 1 5">
-                    <!-- <button class="go-first">Go!</button> -->
                 </menu>
                 <div class="screen screen-first"></div>
             </section>
@@ -162,12 +171,12 @@
             <section>
                 <menu>
                     <input class="last-input" type="text" value="42 17 56 33 91 24 8 69 12 5" placeholder="Example: 42 17 56 33 91 24 8 69 12 5">
-                    <!-- <button class="go-last">Go!</button> -->
                 </menu>
                 <div class="screen screen-last"></div>
             </section>
     </div>
 
     <script type="module" src="./thingamabob.js"></script>
+    <script type="module" src="thingamajig.js"></script>
 </body>
 </html>

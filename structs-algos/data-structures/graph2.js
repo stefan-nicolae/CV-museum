@@ -1,4 +1,4 @@
-class Node {
+export class Node {
     constructor(value) {
         this.friends = []
         this.value = value
@@ -6,9 +6,34 @@ class Node {
 }
 
 export class Graph {
+    constructor() {
+        this.nodeList = []
+    }
+
+    _push (myArray, newValue) {
+        if (!myArray.includes(newValue)) myArray.push(newValue);
+    }
+
+    find(node) {
+        return this.nodeList.includes(node)
+    }
+
+    findNodeByValue(value) {
+        return this.nodeList.find(node => node.value===value)
+    }
+
     insert(node1, node2, twoWay=true) {
-        node1.friends.push(node2)
-        if(twoWay) node2.friends.push(node1)
+        //if node1 doesn't exist and firstNode doesn't exist, make node1 the firstnode
+        if(!this.find(node1) && !this.firstNode) this.firstNode = node1 
+        //if node1 doesn't exist and startNode exists, return
+        else if(!this.find(node1) && this.firstNode) return
+        //if node2 exists, create the connection if it doesn't already exist 
+        this._push(this.nodeList, node1)
+        this._push(this.nodeList, node2)
+
+        this._push(node1.friends, node2)
+        if(twoWay) this._push(node2.friends, node1)
+        
     }
 
     check(node1, node2, twoWay=true) {
@@ -46,39 +71,3 @@ export class Graph {
         return resultArr
     }
 }
-
-//DOCS
-
-// const graph = new Graph()
-
-    // const n1 = new Node(1)
-    // const n2 = new Node(2)
-    // const n3 = new Node(3)
-    // const n4 = new Node(4)
-    // const n4_2 = new Node(4)
-    // const n5 = new Node(5)
-    // const n6 = new Node(6)
-    // const n7 = new Node(7)
-    // const n8 = new Node(8)
-
-    // const insertNodePair = (node1, node2) => {
-    //     graph.insert(node1, node2)
-    // }
-
-    // insertNodePair(n1, n7)
-    // insertNodePair(n2, n6)
-    // insertNodePair(n3, n5)
-    // insertNodePair(n3, n1)
-    // insertNodePair(n4, n6)
-    // insertNodePair(n5, n4)
-    // insertNodePair(n5, n2)
-    // insertNodePair(n6, n8)
-    // insertNodePair(n7, n2)
-    // insertNodePair(n7, n8)
-    // insertNodePair(n8, n4_2)
-
-    // console.log(graph.BFS(4, n1))
-    // console.log(graph.DFS(4, n1))
-
-
-
