@@ -80,6 +80,7 @@ export class DoubleLinkedList {
     }
 
     remove(node) {
+        if(!node) return
         if (node.prevNode) {
           node.prevNode.nextNode = node.nextNode;
         } else {
