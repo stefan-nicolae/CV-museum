@@ -1,6 +1,6 @@
 export function networkGraph(nodeList) {
     // Define the data for your graph (you can replace this with your own data).
-    let nodes = nodeList.map(obj => ({ "id": obj.value }))
+    const nodes = nodeList.map(obj => ({ "id": obj.value }))
     const links = []
     nodeList.forEach(obj => {
         obj.friends.forEach(friend => {
