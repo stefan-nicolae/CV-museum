@@ -82,6 +82,7 @@ $(document).ready(function() {
         });
         
         output.append(input);
+        return input
     }
 
     function setupRun(selected, input, output) {
@@ -141,11 +142,13 @@ $(document).ready(function() {
                 })
 
                 addInput(firstOutput, "find(value)", (inputVal) => {
+                    inputVal = parseFloat(inputVal)
                     log(stringifyCircular(tree.find(inputVal)), id)
                     write(firstOutput, id)
                 })
 
                 addInput(firstOutput, "remove(value)", (inputVal) => {
+                    inputVal = parseFloat(inputVal)
                     log("Before: ", id)
                     tree.display(msg => log(msg.replaceAll(" ", "-"), id))
                     tree.remove(tree.find(inputVal))
@@ -159,40 +162,57 @@ $(document).ready(function() {
             case "double linked list":
                 DLL = new DoubleLinkedList(arr)
 
-                addButton(firstOutput, "toArray", () => {
-                    log(DLL.toArray(), id)
-                    write(firstOutput, id, true)
-                })
-
                 addButton(firstOutput, "Reload", () => {
                     DLL = new DoubleLinkedList(arr)
                     $("button:contains('" + "toArray" + "')").click()
                 })
 
-                addInput(firstOutput, "insert(value, index [-1 -> length-1])", inputVal => {
+                addButton(firstOutput, "toArray", () => {
+                    log(DLL.toArray(), id)
+                    write(firstOutput, id, true)
+                })
+
+                const insertInput = addInput(firstOutput, "insert(value, index [-1 -> length-1])", inputVal => {
                     let inputArr = inputVal.split(" ")
                     if(inputArr[1] === "") return
                     inputArr = inputArr.map(Number)
                     const value = inputArr[0]
                     const targetNode = inputArr[1] === -1 ? -1 : DLL.getNodeByIndex(inputArr[1])
-                    if(inputArr.length===2){
+                    if(inputArr.length===2 && !isNaN(inputArr[1])){
                         DLL.insert(value, targetNode)
                         log(DLL.toArray(), id)
                         write(firstOutput, id, true)
+                        insertInput.val("")
                     }
                 })
+                
                 addInput(firstOutput, "getNodeByIndex(index [0 -> length-1])", inputVal => {
                     log(stringifyCircular(DLL.getNodeByIndex(parseFloat(inputVal))), id)
                     write(firstOutput, id)
-                })
+                }).on('input', function() {
+                    if ($(this).val() === "") {
+                        $("button:contains('" + "toArray" + "')").click()
+                    }
+                });
+
                 addInput(firstOutput, "find(value)", inputVal => {
                     log(stringifyCircular(DLL.find(parseFloat(inputVal))), id)
                     write(firstOutput, id)
-                })
+                }).on('input', function() {
+                    if ($(this).val() === "") {
+                        $("button:contains('" + "toArray" + "')").click()
+                    }
+                });
+
                 addInput(firstOutput, "remove(value)", inputVal => {
                     DLL.remove(DLL.find(parseFloat(inputVal)))
                     $("button:contains('" + "toArray" + "')").click()
-                })
+                }).on('input', function() {
+                    if ($(this).val() === "") {
+                        $("button:contains('" + "toArray" + "')").click()
+                    }
+                });
+
                 $("button:contains('" + "toArray" + "')").click()
                 break
             case "graph":
@@ -223,7 +243,7 @@ $(document).ready(function() {
                     networkGraph(graph.nodeList)
                 })
                 $("button:contains('" + "Display" + "')").click()
-
+                break
         }
     }
 
