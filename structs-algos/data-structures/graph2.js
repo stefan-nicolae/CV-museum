@@ -25,14 +25,14 @@ export class Graph {
     insert(node1, node2, twoWay=true) {
         //if node1 doesn't exist and firstNode doesn't exist, make node1 the firstnode
         if(!this.find(node1) && !this.firstNode) this.firstNode = node1 
-        //if node1 doesn't exist and startNode exists, return
+        //if node1 doesn't exist and firstNode exists, return
         else if(!this.find(node1) && this.firstNode) return
-        //if node2 exists, create the connection if it doesn't already exist 
+        //create the connection if it doesn't already exist 
         this._push(this.nodeList, node1)
         this._push(this.nodeList, node2)
-
         this._push(node1.friends, node2)
         if(twoWay) this._push(node2.friends, node1)
+        console.log(this.nodeList)
         
     }
 

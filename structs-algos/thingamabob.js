@@ -185,7 +185,7 @@ $(document).ready(function() {
                         insertInput.val("")
                     }
                 })
-                
+
                 addInput(firstOutput, "getNodeByIndex(index [0 -> length-1])", inputVal => {
                     log(stringifyCircular(DLL.getNodeByIndex(parseFloat(inputVal))), id)
                     write(firstOutput, id)
@@ -224,15 +224,20 @@ $(document).ready(function() {
                     if(inputArr.length === 3 && inputArr[2] !== "" && inputArr[2] !== 0) {
                         const one = parseFloat(inputArr[0])
                         const two = parseFloat(inputArr[1])
+                        //HERE
                         graph.insert(
                             graph.firstNode ? graph.findNodeByValue(one) : new GraphNode(one),
-                            new GraphNode(two),
+                            graph.findNodeByValue(two) ? graph.findNodeByValue(two) : new GraphNode(two),
                             inputArr[2] === "T" ? true : false
                         )
                         firstOutput.find("input").eq(0).val("");
                     }
                     $("button:contains('" + "Display" + "')").click()
-                })
+                }).on('input', function() {
+                    if ($(this).val() === "") {
+                        $("button:contains('" + "Display" + "')").click()
+                    }
+                });
                 addButton(firstOutput, "Reset", () => {
                     graph = new Graph()
                     $("button:contains('" + "Display" + "')").click()
