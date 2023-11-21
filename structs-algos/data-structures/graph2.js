@@ -39,7 +39,7 @@ export class Graph {
        else return node1.friends.includes(node2) !== node2.friends.includes(node1)
     }
 
-    DFS (value, startNode) {
+    DFS (value, startNode=this.nodeList[0]) {
         const stack = [startNode], visited = [], resultArr = []
         while(stack.length) {
             const node = stack.pop()
@@ -54,7 +54,7 @@ export class Graph {
         return resultArr
     }
 
-    BFS (value, startNode) {
+    BFS (value, startNode=this.nodeList[0]) {
         const queue = [startNode], visited = [], resultArr = []
         while(queue.length) {
             const node = queue.shift()

@@ -40,9 +40,6 @@ $(document).ready(function() {
     const LOGS = {}
     let tree, DLL, graph, hashtable, globalID, displayFunc, enterFunc = () => {}
 
-
-
-
     const listener = function(event) {
         if (event.key === 'Enter') {
             $('.screen-first input').val('');
@@ -247,14 +244,15 @@ $(document).ready(function() {
                     firstOutput.find("input").eq(0).val("");
                     displayFunc()
                 }, 3)
+
+                addInput(firstOutput, 'Breadth first search: value', inputVal => {
+                    log(graph.BFS(inputVal), id)
+                    write(firstOutput, id)
+                })
  
                 displayFunc = () => {
                     firstOutput.append("<div class='graph'></div>")
-                    setTimeout(() => {
-                        console.log(graph.nodeList[0])
-
-                        networkGraph(graph.nodeList)
-                    }, 200)
+                    networkGraph(graph.nodeList )
                 }
                 break
         }
