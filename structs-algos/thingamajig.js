@@ -21,17 +21,17 @@ export function networkGraph(nodeList) {
         .attr("width", 400)
         .attr("height", 300);
 
-        svg.append("defs").append("marker")
-    .attr("id", "arrowhead")
-    .attr("viewBox", "0 -5 10 10")
-    .attr("refX", 45) // Adjust the position of the arrowhead if needed
-    .attr("refY", 0)
-    .attr("markerWidth", 6)
-    .attr("markerHeight", 6)
-    .attr("orient", "auto")
-    .append("path")
-    .attr("d", "M0,-5L10,0L0,5")
-    .attr("class", "arrowhead");
+    svg.append("defs").append("marker")
+        .attr("id", "arrowhead")
+        .attr("viewBox", "0 -5 10 10")
+        .attr("refX", 45) // Adjust the position of the arrowhead if needed
+        .attr("refY", 0)
+        .attr("markerWidth", 6)
+        .attr("markerHeight", 6)
+        .attr("orient", "auto")
+        .append("path")
+        .attr("d", "M0,-5L10,0L0,5")
+        .attr("class", "arrowhead");
 
 
     // Create a D3 force simulation.
@@ -82,7 +82,6 @@ export function networkGraph(nodeList) {
     // Update the positions of nodes and links during the simulation.
     simulation.on("tick", ticked);
 
-
     // Drag functions
     function dragstarted(event, d) {
         if (!event.active) simulation.alphaTarget(0.3).restart();
@@ -91,7 +90,6 @@ export function networkGraph(nodeList) {
     }
     
     function dragged(event, d) {
-
         d.fx = event.x; // Update the fixed x-coordinate based on the drag event
         d.fy = event.y; // Update the fixed y-coordinate based on the drag event
     }
