@@ -2,17 +2,18 @@ export function networkGraph(nodeList) {
     // Define the data for your graph (you can replace this with your own data).
 
     console.log(nodeList)
-    const nodes = nodeList.map(obj => ({ "id": obj.value }))
-    const links = []
-    nodeList.forEach(obj => {
-        obj.friends.forEach(friend => {
-            links.push(
-                { source: obj.value, target: friend.value }
-            )
-        })
+    let counter = 0
+    nodeList.map(node => {
+        node.id = counter++
     })
 
-
+    const nodes = nodeList.map(node => ({id: node.id, value: node.value}))
+    const links = []
+    nodeList.forEach(node => {
+        node.friends.forEach(friend => {
+            links.push({source: node.id, target: friend.id})
+        })
+    } )
 
     console.log("Graph created")
     // Create an SVG container for the graph inside the "div.graph" element.
@@ -62,7 +63,7 @@ export function networkGraph(nodeList) {
         .attr("fill", "steelblue"); // Set the circle fill color to steel blue
 
     node.append("text")
-        .text(d => d.id)
+        .text(d => d.value)
         .attr("dy", 5)
         .attr("dx", -5)
 
@@ -81,6 +82,7 @@ export function networkGraph(nodeList) {
     // Update the positions of nodes and links during the simulation.
     simulation.on("tick", ticked);
 
+
     // Drag functions
     function dragstarted(event, d) {
         if (!event.active) simulation.alphaTarget(0.3).restart();
@@ -89,6 +91,7 @@ export function networkGraph(nodeList) {
     }
     
     function dragged(event, d) {
+
         d.fx = event.x; // Update the fixed x-coordinate based on the drag event
         d.fy = event.y; // Update the fixed y-coordinate based on the drag event
     }
