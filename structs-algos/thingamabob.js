@@ -7,6 +7,30 @@ import { Graph } from "./data-structures/graph2.js";
 import { Node as GraphNode } from "./data-structures/graph2.js";
 import { networkGraph } from "./thingamajig.js";
 
+function stringifyCircular(obj) {
+    const seen = new Map();
+  
+    return JSON.stringify(obj, function(key, value) {
+      if (typeof value === 'object' && value !== null) {
+        if (seen.has(value)) {
+          return '[Circular]';
+        }
+        seen.set(value, true);
+      }
+      return value;
+    });
+}
+
+function generateID(length=20) {
+    const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let id = "";
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * charset.length);
+      id += charset[randomIndex];
+    }
+    return id;
+}
+
 $(document).ready(function() {
     let selectedFirst, selectedLast
     const firstOutput = $(".screen-first")
@@ -14,8 +38,20 @@ $(document).ready(function() {
     const firstInput = $(".first-input")
     const lastInput = $(".last-input")
     const LOGS = {}
-    let tree, DLL, graph, hashtable
-    let globalID
+    let tree, DLL, graph, hashtable, globalID, displayFunc, enterFunc = () => {}
+
+
+
+
+    const listener = function(event) {
+        if (event.key === 'Enter') {
+            $('.screen-first input').val('');
+            enterFunc();
+            enterFunc = () => {}
+        }
+    }
+    document.addEventListener('keydown', listener);
+    
 
     $("nav:first-of-type button").each(function(index, button) {
         $(button).click(() => {
@@ -37,16 +73,6 @@ $(document).ready(function() {
         if(index===0) $(button).click()
     });
       
-    function generateID(length=20) {
-        const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        let id = "";
-        for (let i = 0; i < length; i++) {
-          const randomIndex = Math.floor(Math.random() * charset.length);
-          id += charset[randomIndex];
-        }
-        return id;
-    }
-
     function log(msg, id) {
         LOGS[id].push(msg)
     }
@@ -65,20 +91,44 @@ $(document).ready(function() {
         button.on('click', function() {
             if(output === firstOutput) cleanupFirstOutput()
             func();
+            displayFunc()
         });
         
         output.append(button);
+        return button
     }
 
-    function addInput(output, placeholder, func) {
-        
+    function addInput(output, placeholder, func, requiredLength = 1) {        
         const input = $('<input>').attr('type', 'text').attr('placeholder', placeholder);
         
         input.on('input', function() {
-            if(output === firstOutput) cleanupFirstOutput()
-            const inputValue = input.val(); 
-            if(!inputValue) return
-            func(inputValue); 
+            enterFunc = () => {}
+            if(output === firstOutput) cleanupFirstOutput() 
+            let inputValue = input.val(); 
+            if(!inputValue) {
+                displayFunc()
+                return
+            } 
+            
+            let inputArr = inputValue.trim().split(" ")
+            if(inputArr.length !== requiredLength) return
+
+            inputArr = inputArr.map(element => element === "T" ? 1 : element === "F" ? 0 : Number(element));
+
+            for (const element of inputArr) {
+                if (!/^-?\d+$/.test(element)) {
+                    return; 
+                }
+            }
+
+            inputArr = inputArr.map(Number)
+
+            if(requiredLength === 1) {
+                enterFunc = () => func(inputArr[0]);
+            } else {
+                enterFunc = () => func(inputArr);
+            }
+    
         });
         
         output.append(input);
@@ -93,21 +143,7 @@ $(document).ready(function() {
         const arr = input.val().split(" ").map(Number)
         return [id, arr]
     }
-
-    function stringifyCircular(obj) {
-        const seen = new Map();
-      
-        return JSON.stringify(obj, function(key, value) {
-          if (typeof value === 'object' && value !== null) {
-            if (seen.has(value)) {
-              return '[Circular]';
-            }
-            seen.set(value, true);
-          }
-          return value;
-        });
-    }
-
+ 
     function cleanupFirstOutput() {
         $(firstOutput).children().filter(":not(button, input)").remove();
         LOGS[globalID] = []
@@ -127,28 +163,25 @@ $(document).ready(function() {
                 arr.forEach(nr => {
                     tree.insert(nr)
                 })
-
-                addButton(firstOutput, "Display", () => {
+ 
+                displayFunc = () => {
                     tree.display(msg => log(msg.replaceAll(" ", "-"), id))
                     write(firstOutput, id)
-                })
+                }
 
-                addButton(firstOutput, "Reload Tree", () => {
+                addButton(firstOutput, "Reload", () => {
                     tree = new BinarySearchTree() 
                     arr.forEach(nr => {
                         tree.insert(nr)
                     })
-                    $("button:contains('" + "Display" + "')").click()
                 })
 
-                addInput(firstOutput, "find(value)", (inputVal) => {
-                    inputVal = parseFloat(inputVal)
+                addInput(firstOutput, "find: value", (inputVal) => {
                     log(stringifyCircular(tree.find(inputVal)), id)
                     write(firstOutput, id)
                 })
 
-                addInput(firstOutput, "remove(value)", (inputVal) => {
-                    inputVal = parseFloat(inputVal)
+                addInput(firstOutput, "remove: value", (inputVal) => {
                     log("Before: ", id)
                     tree.display(msg => log(msg.replaceAll(" ", "-"), id))
                     tree.remove(tree.find(inputVal))
@@ -157,99 +190,83 @@ $(document).ready(function() {
                     write(firstOutput, id)
                 })
 
-                $("button:contains('" + "Display" + "')").click()
                 break
             case "double linked list":
                 DLL = new DoubleLinkedList(arr)
 
                 addButton(firstOutput, "Reload", () => {
                     DLL = new DoubleLinkedList(arr)
-                    $("button:contains('" + "toArray" + "')").click()
                 })
 
-                addButton(firstOutput, "toArray", () => {
+                displayFunc = () => {
                     log(DLL.toArray(), id)
                     write(firstOutput, id, true)
-                })
+                }
 
-                const insertInput = addInput(firstOutput, "insert(value, index [-1 -> length-1])", inputVal => {
-                    let inputArr = inputVal.split(" ")
-                    if(inputArr[1] === "") return
-                    inputArr = inputArr.map(Number)
-                    const value = inputArr[0]
+                const insertInput = addInput(firstOutput, "insert: value, index (-1 to len - 1)", inputArr => {
                     const targetNode = inputArr[1] === -1 ? -1 : DLL.getNodeByIndex(inputArr[1])
-                    if(inputArr.length===2 && !isNaN(inputArr[1])){
-                        DLL.insert(value, targetNode)
-                        log(DLL.toArray(), id)
-                        write(firstOutput, id, true)
-                        insertInput.val("")
-                    }
+                    DLL.insert(inputArr[0], targetNode)
+                    log(DLL.toArray(), id)
+                    write(firstOutput, id, true)
+                    insertInput.val("")
+                    
+                }, 2)
+
+                addInput(firstOutput, "getNodeByIndex: index (0 to len - 1)", inputVal => {
+                    log(stringifyCircular(DLL.getNodeByIndex(inputVal)), id)
+                    write(firstOutput, id)
                 })
 
-                addInput(firstOutput, "getNodeByIndex(index [0 -> length-1])", inputVal => {
-                    log(stringifyCircular(DLL.getNodeByIndex(parseFloat(inputVal))), id)
+                addInput(firstOutput, "find: value", inputVal => {
+                    log(stringifyCircular(DLL.find(inputVal)), id)
                     write(firstOutput, id)
-                }).on('input', function() {
-                    if ($(this).val() === "") {
-                        $("button:contains('" + "toArray" + "')").click()
-                    }
-                });
+                })
 
-                addInput(firstOutput, "find(value)", inputVal => {
-                    log(stringifyCircular(DLL.find(parseFloat(inputVal))), id)
-                    write(firstOutput, id)
-                }).on('input', function() {
-                    if ($(this).val() === "") {
-                        $("button:contains('" + "toArray" + "')").click()
-                    }
-                });
+                addInput(firstOutput, "remove: value", inputVal => {
+                    DLL.remove(DLL.find(inputVal))
+                    displayFunc()
+                })
 
-                addInput(firstOutput, "remove(value)", inputVal => {
-                    DLL.remove(DLL.find(parseFloat(inputVal)))
-                    $("button:contains('" + "toArray" + "')").click()
-                }).on('input', function() {
-                    if ($(this).val() === "") {
-                        $("button:contains('" + "toArray" + "')").click()
-                    }
-                });
-
-                $("button:contains('" + "toArray" + "')").click()
                 break
             case "graph":
                 graph = new Graph()
                 firstInput.prop("disabled", true);
 
-                addInput(firstOutput, "insertNodePair(v1, v2, twoWay T/F)", inputVal => {
-                    let inputArr = inputVal.split(" ")
-                    if(inputArr.length === 3 && inputArr[2] !== "" && inputArr[2] !== 0) {
-                        const one = parseFloat(inputArr[0])
-                        const two = parseFloat(inputArr[1])
-                        //HERE
-                        graph.insert(
-                            graph.firstNode ? graph.findNodeByValue(one) : new GraphNode(one),
-                            graph.findNodeByValue(two) ? graph.findNodeByValue(two) : new GraphNode(two),
-                            inputArr[2] === "T" ? true : false
-                        )
-                        firstOutput.find("input").eq(0).val("");
-                    }
-                    $("button:contains('" + "Display" + "')").click()
-                }).on('input', function() {
-                    if ($(this).val() === "") {
-                        $("button:contains('" + "Display" + "')").click()
-                    }
-                });
-                addButton(firstOutput, "Reset", () => {
+                addButton(firstOutput, "Reload", () => {
                     graph = new Graph()
-                    $("button:contains('" + "Display" + "')").click()
                 })
-                addButton(firstOutput, "Display", () => {
-                    firstOutput.append("<p>Made with d3.js</p>")
+
+                addInput(firstOutput, 'addNodePair: v1, v2, twoWay ("T"/"F")', inputArr => {
+                    const one = inputArr[0]
+                    const two = inputArr[1]
+                    graph.insert( 
+                        graph.firstNode ? graph.findNodeByValue(one) : new GraphNode(one),
+                        graph.findNodeByValue(two) ? graph.findNodeByValue(two) : new GraphNode(two),
+                        inputArr[2] 
+                    )
+                    firstOutput.find("input").eq(0).val("");
+                    displayFunc()
+                }, 3)
+ 
+                displayFunc = () => {
                     firstOutput.append("<div class='graph'></div>")
-                    networkGraph(graph.nodeList)
-                })
-                $("button:contains('" + "Display" + "')").click()
+                    setTimeout(() => {
+                        console.log(graph.nodeList[0])
+
+                        networkGraph(graph.nodeList)
+                    }, 200)
+                }
                 break
         }
+
+        displayFunc()
+        $('.screen-first input').on('focus', function() {
+            $('.screen-first input').val('');
+            const containsParagraphOrGraph = firstOutput.find('p, .graph').length > 0;
+
+            if(!containsParagraphOrGraph)            
+                displayFunc()
+        });
     }
 
     function runAlgos() {

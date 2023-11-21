@@ -31,9 +31,7 @@ export class Graph {
         this._push(this.nodeList, node1)
         this._push(this.nodeList, node2)
         this._push(node1.friends, node2)
-        if(twoWay) this._push(node2.friends, node1)
-        console.log(this.nodeList)
-        
+        if(twoWay) this._push(node2.friends, node1)        
     }
 
     check(node1, node2, twoWay=true) {

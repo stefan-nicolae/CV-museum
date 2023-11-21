@@ -1,5 +1,7 @@
 export function networkGraph(nodeList) {
     // Define the data for your graph (you can replace this with your own data).
+
+    console.log(nodeList)
     const nodes = nodeList.map(obj => ({ "id": obj.value }))
     const links = []
     nodeList.forEach(obj => {
@@ -12,10 +14,7 @@ export function networkGraph(nodeList) {
 
 
 
-
-    console.log("nodes", nodes)
-    console.log("links", links)
-
+    console.log("Graph created")
     // Create an SVG container for the graph inside the "div.graph" element.
     const svg = d3.select("div.graph").append("svg")
         .attr("width", 400)
