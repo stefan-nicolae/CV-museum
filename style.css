@@ -63,6 +63,10 @@ section {
     margin-bottom: 64px;
 }
 
+section:first-of-type {
+    margin-top: 0;
+}
+
 ul {
     margin-top: 8px;
     margin-left: 24px;
@@ -138,6 +142,10 @@ li, span {
     section {
         margin-left: 240px;
         margin-right: 240px;
+    }
+    
+    #go-up {
+        right: 270px;
     }
 }
 
