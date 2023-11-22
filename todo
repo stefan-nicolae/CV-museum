@@ -1,3 +1,5 @@
+INTERFACE
+
 - graph
     - clicking on bubbles broken
     - check()
@@ -5,5 +7,7 @@
     - BFS()
     - it's acting up when two same values are inserted
 - hashtable
-- remove comments, console.logs, format code
 - add back the display button
+
+OTHER
+- remove comments, console.logs, format code

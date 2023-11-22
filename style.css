@@ -1,7 +1,7 @@
 :root {
-    --backgroundColor: rgb(192, 192, 192);
-    --textColor: rgb(44, 44, 44);
-    --highlightColor: rgb(11, 24, 110);
+    --backgroundColor: rgb(34, 34, 34);
+    --textColor: rgb(178, 178, 178);
+    --highlightColor: rgb(201, 124, 0);
 }
 
 @font-face {
@@ -51,6 +51,7 @@ header {
 
 a {
     color: var(--highlightColor);
+    text-decoration: none;
 }
 
 a:hover {
