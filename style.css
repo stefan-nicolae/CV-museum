@@ -70,7 +70,14 @@ ul {
 
 hr {
     border: 0;
-    border-top: solid var(--textColor) 1px;
+    border-top: solid rgb(75, 75, 75) 1px;
+    /* width: 480px; */
+    width: 100%;
+    /* display: none; */
+}
+
+h3 {
+    /* text-decoration: underline; */
 }
 
 .gallery {
@@ -125,6 +132,13 @@ li, span {
     float: right;
     z-index: 2;
     font-family: Helvetica-Bold;
+}
+
+@media (min-width: 769px) {
+    section {
+        margin-left: 240px;
+        margin-right: 240px;
+    }
 }
 
 @media (max-width: 768px) {
