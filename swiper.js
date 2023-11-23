@@ -7,9 +7,10 @@ $(document).ready(function(){
         var firstImageSrc = $(this).find('.gallery img:first').attr('src');
         
         var galleryObject = {
-        name: sectionTitle,
-        galleryId: sectionId,
-        firstImageSrc: firstImageSrc
+            h3: $(this).find('h3'),
+            name: sectionTitle,
+            galleryId: sectionId,
+            firstImageSrc: firstImageSrc
         };
 
         galleryArray.push(galleryObject);
@@ -48,5 +49,9 @@ $(document).ready(function(){
     }
 
     populateSwiper();
+
+    galleryArray.forEach(function(item) {
+        $("#table-of-contents").find("ul").append(`<li><a href="#${item.galleryId}">${item.h3.html()}</a></li>`)
+    })
 });
 

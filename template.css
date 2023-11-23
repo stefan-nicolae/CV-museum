@@ -1,0 +1,16 @@
+:root {
+    --backgroundColor: rgb(34, 34, 34);
+    --textColor: rgb(178, 178, 178);
+    --darkGray: rgb(75, 75, 75);
+    --highlightColor: rgb(201, 124, 0);
+}
+
+@font-face {
+    font-family: helvetica;
+    src: url(./fonts/Helvetica.ttf);
+}
+
+@font-face {
+    font-family: helvetica-bold;
+    src: url(./fonts/Helvetica-Bold.ttf);
+}
