@@ -1,8 +1,9 @@
 :root {
     --backgroundColor: rgb(34, 34, 34);
-    --textColor: rgb(178, 178, 178);
+    --textColor: rgb(218, 218, 218);
     --darkGray: rgb(75, 75, 75);
     --highlightColor: rgb(201, 124, 0);
+    --darkerTextColor: rgb(163, 163, 163);
 }
 
 @font-face {
@@ -13,4 +14,8 @@
 @font-face {
     font-family: helvetica-bold;
     src: url(./fonts/Helvetica-Bold.ttf);
+}
+
+::selection {
+    background-color: var(--highlightColor); /* Change this color to your preference */
 }

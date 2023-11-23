@@ -6,10 +6,7 @@
     <title>Demo</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        @font-face {
-            font-family: helvetica;
-            src: url(../fonts/Helvetica.ttf);
-        }
+        @import url("../template.css");
 
         * {
             box-sizing: border-box;
@@ -18,7 +15,7 @@
         }
 
         .container {
-            background-color: gray;
+            background-color: var(--backgroundColor);
             height: 1200px;
             min-height: 100vh;
             font-family: Helvetica;
@@ -26,7 +23,7 @@
         }
 
         h1  {
-            color: white;
+            color: var(--textColor);
             user-select: none;
             margin-bottom: 8px;
         }
@@ -35,8 +32,8 @@
             padding: 4px 8px;
             border-radius: 0;
             border: none;
-            background-color: rgb(71, 71, 71);
-            color: white;
+            background-color: var(--darkGray);
+            color: var(--textColor);
             font-weight: bold;
             cursor: pointer;
             user-select: none;
@@ -44,41 +41,35 @@
         }
 
         button:hover {
-            background-color: rgb(39, 39, 39);
+            background-color: var(--backgroundColor);
         }
 
         section {
             padding: 8px;
             height: 320px;
-            border: 1px solid rgb(71, 71, 71);
+            border: 1px solid var(--darkGray);
             display: flex;
             flex-direction: column;
         }
 
-        section menu {
-            display: flex;
-        }
-
-        section menu button {
-            margin-bottom: 8px;
-            margin-left: 8px;
-            width: 64px;
-        }
 
         button.highlight {
-            background-color: rgb(104, 0, 0);
+            background-color: var(--highlightColor);
         }
 
         section menu input {
             padding: 4px 8px;
             margin-bottom: 8px;
-            flex: 1;
+            background-color: var(--backgroundColor);
+            border: 1px solid var(--darkGray);
+            color: var(--darkerTextColor);
         }
 
         section .screen {
             padding: 8px;
             flex: 1;
-            background-color: rgb(187, 187, 187);
+            background-color: var(--backgroundColor);
+            color: var(--highlightColor);
             width: 100%;
             line-height: 24px;
             overflow-y: scroll;
@@ -87,7 +78,7 @@
         }
 
         ul {
-            color: white;
+            color: var(--textColor);
             margin-bottom: 8px;
             margin-top: 16px;
             margin-left: 24px;
@@ -95,31 +86,40 @@
         }
 
         span.copy {
-            background-color: rgb(71, 71, 71);
+            background-color: var(--darkGray);
+            color: var(--darkerTextColor);
             padding: 0 4px;
         }
 
-        .screen input, .screen button {
+        input, button {
             border-radius: 8px;
         }
 
         .screen button {
             margin-right: 8px;
-            color: rgb(202, 202, 202);
+            color: var(--darkerTextColor);
         }
 
-        .screen input {
+        input {
             padding: 4px;
-            background-color: rgb(111, 111, 111);
-            color: white;
+            background-color: var(--darkGray);
+            color: var(--textColor);
             border: none;
             outline: none;
             margin-right: 8px;
             width: 240px;
         }
 
+        
+        nav button {
+            border-top-left-radius: 8px; 
+            border-top-right-radius: 8px; 
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
         .screen input::placeholder {
-            color: rgb(221, 221, 221);
+            color: var(--darkerTextColor);
         }
 
         .screen > p {
