@@ -40,6 +40,13 @@ a {
     text-decoration: none;
 }
 
+.gotoLink {
+    /* padding: 4px 8px;
+    border-radius: 8px;
+    border: 1px solid var(--darkGray); */
+    text-decoration: underline;
+}
+
 a:hover {
     opacity: 0.5;
 }
@@ -61,13 +68,7 @@ ul {
 hr {
     border: 0;
     border-top: solid var(--darkGray) 1px;
-    /* width: 480px; */
     width: 100%;
-    /* display: none; */
-}
-
-h3 {
-    /* text-decoration: underline; */
 }
 
 .gallery {
@@ -93,6 +94,7 @@ h3 {
     top: 0;
     left: 0;
     display: none;
+    user-select: none;
 }
 
 .fullscreen-shadow {
@@ -123,6 +125,7 @@ li, span {
     z-index: 2;
     font-family: Helvetica-Bold;
 }
+
 
 @media (min-width: 769px) {
     section {

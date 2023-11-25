@@ -36,3 +36,10 @@ function handleResize () {
 }
 
 window.addEventListener("resize", handleResize);
+
+document.querySelectorAll('section').forEach(section => {
+    const firstAnchor = section.querySelector('a');
+    if (firstAnchor) {
+        firstAnchor.classList.add("gotoLink")
+    }
+});

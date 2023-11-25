@@ -50,8 +50,11 @@
             border: 1px solid var(--darkGray);
             display: flex;
             flex-direction: column;
+            border-top-left-radius: 0px; /* Keep the top-left corner straight */
+            border-top-right-radius: 8px; /* Round the top-right corner */
+            border-bottom-right-radius: 8px; /* Round the bottom-right corner */
+            border-bottom-left-radius: 8px; /* Round the bottom-left corner */
         }
-
 
         button.highlight {
             background-color: var(--highlightColor);
@@ -117,7 +120,7 @@
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
         }
-
+        
         .screen input::placeholder {
             color: var(--darkerTextColor);
         }
