@@ -28,12 +28,3 @@ export class HashTable {
 }
 
 
-//DOCS
-
-// const table = new HashTable()
-
-    // table.insert("John", "asdasd123")
-
-    // console.log(table.check("John", "asdasd123"))
-
-    // table.remove("John", "asdasd123")

@@ -17,5 +17,5 @@
 }
 
 ::selection {
-    background-color: var(--highlightColor); /* Change this color to your preference */
+    background-color: var(--highlightColor);
 }

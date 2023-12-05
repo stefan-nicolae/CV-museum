@@ -7,9 +7,6 @@ const highlightColor = rootStyles.getPropertyValue('--highlightColor');
 const darkerTextColor = rootStyles.getPropertyValue('--darkerTextColor');
 
 export function networkGraph(nodeList) {
-    // Define the data for your graph (you can replace this with your own data).
-
-    console.log(nodeList)
     let counter = 0
     nodeList.map(node => {
         node.id = counter++
@@ -23,8 +20,6 @@ export function networkGraph(nodeList) {
         })
     } )
 
-    console.log("Graph created")
-    // Create an SVG container for the graph inside the "div.graph" element.
     const svg = d3.select("div.graph").append("svg")
         .attr("width", 400)
         .attr("height", 300);
@@ -32,7 +27,7 @@ export function networkGraph(nodeList) {
     svg.append("defs").append("marker")
         .attr("id", "arrowhead")
         .attr("viewBox", "0 -5 10 10")
-        .attr("refX", 45) // Adjust the position of the arrowhead if needed
+        .attr("refX", 45) 
         .attr("refY", 0)
         .attr("markerWidth", 6)
         .attr("markerHeight", 6)
@@ -43,19 +38,17 @@ export function networkGraph(nodeList) {
         .attr("fill", darkGray)
 
 
-    // Create a D3 force simulation.
     const simulation = d3.forceSimulation(nodes)
-        .force("link", d3.forceLink(links).id(d => d.id).distance(80)) // Set the desired link distance
+        .force("link", d3.forceLink(links).id(d => d.id).distance(80)) 
         .force("charge", d3.forceManyBody())
         .force("center", d3.forceCenter(200, 150));
 
-    // Create links and nodes.
     const link = svg.selectAll(".link")
         .data(links)
         .enter().append("line")
         .attr("class", "link")
         .attr("stroke", darkGray)
-        .attr("marker-end", "url(#arrowhead)"); // Use the arrowhead marker with the ID "arrowhead"
+        .attr("marker-end", "url(#arrowhead)");
 
 
     const node = svg.selectAll(".node")
@@ -65,7 +58,7 @@ export function networkGraph(nodeList) {
 
     node.append("circle")
         .attr("r", 20)
-        .attr("fill", highlightColor); // Set the circle fill color to steel blue
+        .attr("fill", highlightColor); 
 
     node.append("text")
         .text(d => d.value)
@@ -73,7 +66,6 @@ export function networkGraph(nodeList) {
         .attr("dx", -5)
         .style("fill", backgroundColor)
 
-    // Define a tick function to update the positions of nodes and links.
     const ticked = () => {
         link
             .attr("x1", d => d.source.x)
@@ -85,6 +77,5 @@ export function networkGraph(nodeList) {
             .attr("transform", d => `translate(${d.x},${d.y})`);
     };
 
-    // Update the positions of nodes and links during the simulation.
     simulation.on("tick", ticked);
 }
