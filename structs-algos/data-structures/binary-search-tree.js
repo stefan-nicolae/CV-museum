@@ -46,7 +46,7 @@ export class BinarySearchTree {
         return propagate()
     }
 
-    display(log=(msg)=>{console.log(msg)}) {
+    display(log=(msg)=>{}) {
         const findOutDepth = () => {
             let maxDepth = 1
             const propagate = (node = this.firstNode, depth = 1) => {

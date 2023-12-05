@@ -7,7 +7,6 @@ const highlightColor = rootStyles.getPropertyValue('--highlightColor');
 const darkerTextColor = rootStyles.getPropertyValue('--darkerTextColor');
 
 export function networkGraph(nodeList) {
-    console.log(nodeList)
     let counter = 0
     nodeList.map(node => {
         node.id = counter++
@@ -21,7 +20,6 @@ export function networkGraph(nodeList) {
         })
     } )
 
-    console.log("Graph created")
     const svg = d3.select("div.graph").append("svg")
         .attr("width", 400)
         .attr("height", 300);

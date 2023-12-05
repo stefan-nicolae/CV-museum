@@ -64,7 +64,6 @@ class AdjacencyList {
                 return false
             }
         } catch(err) {
-            console.log(err)
             console.error("Nodes not found")
             return false
         }
