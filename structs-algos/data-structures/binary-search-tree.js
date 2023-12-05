@@ -133,20 +133,3 @@ export class BinarySearchTree {
     }
 }
  
-//DOCS
-
-//const tree = new BinarySearchTree()
-
-//tree.insert(value)
-
-//tree.display() 
-    //  displays the tree's content in the console
-    //  looks the best with positive digits
-
-//tree.find(value)
-    //  finds all of the nodes with said value 
-    //  returns them in an array
-
-//tree.remove(node)
-    //  removes node
-

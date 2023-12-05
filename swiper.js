@@ -30,8 +30,8 @@ $(document).ready(function(){
             prevEl: '.swiper-button-prev',
         },
         autoplay: {
-            delay: 3000, // Set the delay between slides in milliseconds (e.g., 3000 for 3 seconds)
-            disableOnInteraction: false, // Keep autoplay running even when user interacts with slides
+            delay: 3000, 
+            disableOnInteraction: false, 
         },
     });
     galleryArray.forEach(function(item) {

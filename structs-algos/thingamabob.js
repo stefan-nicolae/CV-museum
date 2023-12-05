@@ -300,12 +300,13 @@ $(document).ready(function() {
                 addInput(firstOutput, 'check( v1, v2, twoWay ["T" or "F"] )', inputArr => {
                     const one = inputArr[0]
                     const two = inputArr[1]
+                    displayFunc()
                     log(graph.check(
                         graph.findNodeByValue(one),
                         graph.findNodeByValue(two),
                         inputArr[2]
                     ), id)
-                    write(firstInput, id)
+                    write(firstOutput, id)
                 }, 3)   
  
                 displayFunc = () => {

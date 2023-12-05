@@ -19,4 +19,3 @@ export function mergesort (a, log=()=>{}) {
     return merged
 }
 
-// console.log(mergesort([8, 2, 7, 4, 7, 1, 3, 9, 6, 5]))
