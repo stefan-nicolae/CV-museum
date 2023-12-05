@@ -7,6 +7,14 @@ import { Graph } from "./data-structures/graph2.js";
 import { Node as GraphNode } from "./data-structures/graph2.js";
 import { networkGraph } from "./thingamajig.js";
 
+const rootStyles = getComputedStyle(document.documentElement);
+
+const backgroundColor = rootStyles.getPropertyValue('--backgroundColor');
+const textColor = rootStyles.getPropertyValue('--textColor');
+const darkGray = rootStyles.getPropertyValue('--darkGray');
+const highlightColor = rootStyles.getPropertyValue('--highlightColor');
+const darkerTextColor = rootStyles.getPropertyValue('--darkerTextColor');
+
 function stringifyCircular(obj) {
     const seen = new Map();
   
@@ -39,7 +47,7 @@ $(document).ready(function() {
     const lastInput = $(".last-input")
 
     const LOGS = {}
-    let tree, DLL, graph, hashtable, globalID, displayFunc, enterFunc = () => {}
+    let tree, DLL, graph, hashtable, globalID, displayFunc, enterFunc = () => {}, GNODEtimer
 
     const listener = function(event) {
         if (event.key === 'Enter') {
@@ -163,10 +171,13 @@ $(document).ready(function() {
     }
 
     function selectGNODE(value) {
-        $('.node text')
-            .filter((_, element) => $(element).text() === value)
-            .prev('circle')
-            .attr('fill', 'blue');
+        GNODEtimer += 200
+        setTimeout(() => {
+            $('.node text')
+                .filter((_, element) => $(element).text() == value)
+                .prev('circle')
+                .attr('fill', 'red');
+        }, GNODEtimer)
     }
 
     function runStructs() {
@@ -269,16 +280,38 @@ $(document).ready(function() {
                         graph.findNodeByValue(two) ? graph.findNodeByValue(two) : new GraphNode(two),
                         inputArr[2] 
                     )
-                    firstOutput.find("input").eq(0).val("");
                     displayFunc()
                 }, 3)
 
                 addInput(firstOutput, 'breadthFirstSearch( value )', inputVal => {
-                    log(graph.BFS(inputVal), id, selectGNODE)
-                    write(firstOutput, id)
+                    GNODEtimer = 200
+                    log(graph.BFS(inputVal, val => selectGNODE(val)), id)
+                    displayFunc()
+                    write(stringifyCircular(firstOutput), id)
                 })
+
+                addInput(firstOutput, 'depthFirstSearch( value )', inputVal => {
+                    GNODEtimer = 200
+                    log(graph.DFS(inputVal, val => selectGNODE(val)), id)
+                    displayFunc()
+                    write(stringifyCircular(firstOutput), id)
+                })
+
+                addInput(firstOutput, 'check( v1, v2, twoWay ["T" or "F"] )', inputArr => {
+                    const one = inputArr[0]
+                    const two = inputArr[1]
+                    log(graph.check(
+                        graph.findNodeByValue(one),
+                        graph.findNodeByValue(two),
+                        inputArr[2]
+                    ), id)
+                    write(firstInput, id)
+                }, 3)   
  
                 displayFunc = () => {
+                    $('.node text')
+                        .prev('circle')
+                        .attr('fill', highlightColor);
                     firstOutput.append("<div class='graph'></div>")
                     networkGraph(graph.nodeList)
                 }
