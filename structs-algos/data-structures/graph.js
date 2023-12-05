@@ -71,3 +71,18 @@ class AdjacencyList {
     }
 }
 
+//DOCS 
+
+// const graph1 = new AdjacencyMatrix(10)
+
+    // graph1.insert(new Node(1), new Node(2))
+
+    // console.log(graph1.check(1, 2))
+
+
+// const graph2 = new AdjacencyList()
+
+    // graph2.insert(new Node(1), new Node(2), false)
+
+    // console.log(graph2.check(1, 2))
+

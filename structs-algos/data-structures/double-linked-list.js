@@ -96,3 +96,22 @@ export class DoubleLinkedList {
        
 }
 
+//DOCS
+
+//const DLL = new DoubleLinkedList( [value1, value2, value3] )
+    //  values should be numbers
+
+//DLL.insert( value, targetNode )
+    //by default, targetNode is the last node in the list
+    //make targetNode -1 to insert at the start
+
+//DLL.getNodeByIndex( index )
+    // works like array[ index ] 
+
+//find ( value )
+    // returns the first node that has the value
+
+//remove ( node )
+
+//DLL.toArray()
+    

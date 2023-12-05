@@ -30,11 +30,10 @@ $(document).ready(function(){
             prevEl: '.swiper-button-prev',
         },
         autoplay: {
-            delay: 3000, 
-            disableOnInteraction: false, 
+            delay: 3000, // Set the delay between slides in milliseconds (e.g., 3000 for 3 seconds)
+            disableOnInteraction: false, // Keep autoplay running even when user interacts with slides
         },
     });
-    
     galleryArray.forEach(function(item) {
         $("#table-of-contents").find("ul").append(`<li><a href="#${item.galleryId}">${item.h3.html()}</a></li>`)
     })

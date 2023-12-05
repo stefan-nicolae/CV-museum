@@ -23,3 +23,4 @@ export function quicksort (a, log=()=>{}) {
     return merged
 }   
 
+// console.log(quicksort([8, 2, 7, 4, 7, 1, 3, 9, 6, 5]))

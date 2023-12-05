@@ -21,3 +21,4 @@ export function bubblesort (a, log=()=>{}) {
     }
 }
 
+// console.log(bubblesort([8, 2, 7, 4, 7, 1, 3, 9, 6, 5]))
