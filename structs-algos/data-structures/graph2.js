@@ -23,11 +23,10 @@ export class Graph {
     }
 
     insert(node1, node2, twoWay=true) {
-        //if node1 doesn't exist and firstNode doesn't exist, make node1 the firstnode
+        if(node1.value === node2.value) return
         if(!this.find(node1) && !this.firstNode) this.firstNode = node1 
-        //if node1 doesn't exist and firstNode exists, return
         else if(!this.find(node1) && this.firstNode) return
-        //create the connection if it doesn't already exist 
+        
         this._push(this.nodeList, node1)
         this._push(this.nodeList, node2)
         this._push(node1.friends, node2)
@@ -39,12 +38,13 @@ export class Graph {
        else return node1.friends.includes(node2) !== node2.friends.includes(node1)
     }
 
-    DFS (value, startNode=this.nodeList[0]) {
+    DFS (value, startNode=this.nodeList[0], select=()=>{}) {
         const stack = [startNode], visited = [], resultArr = []
         while(stack.length) {
             const node = stack.pop()
             if(!visited.includes(node) && node.value === value) resultArr.push(node)
             visited.push(node)
+            select(node.value)
             node.friends.forEach(friend => {
                 if(!visited.includes(friend)) {
                     stack.push(friend)
@@ -54,12 +54,13 @@ export class Graph {
         return resultArr
     }
 
-    BFS (value, startNode=this.nodeList[0]) {
+    BFS (value, startNode=this.nodeList[0], select=()=>{}) {
         const queue = [startNode], visited = [], resultArr = []
         while(queue.length) {
             const node = queue.shift()
             if(!visited.includes(node) && node.value === value) resultArr.push(node)
             visited.push(node)
+            select(node.value)
             node.friends.forEach(friend => {
                 if(!visited.includes(friend)) {
                     queue.push(friend)

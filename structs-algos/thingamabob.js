@@ -37,6 +37,7 @@ $(document).ready(function() {
     const lastOutput = $(".screen-last")
     const firstInput = $(".first-input")
     const lastInput = $(".last-input")
+
     const LOGS = {}
     let tree, DLL, graph, hashtable, globalID, displayFunc, enterFunc = () => {}
 
@@ -90,60 +91,82 @@ $(document).ready(function() {
             func();
             displayFunc()
         });
-        
-        output.append(button);
+        output.find('.controls').append(button);
+
         return button
     }
 
-    function addInput(output, placeholder, func, requiredLength = 1) {        
-        const input = $('<input>').attr('type', 'text').attr('placeholder', placeholder);
-        
-        input.on('input', function() {
-            enterFunc = () => {}
-            if(output === firstOutput) cleanupFirstOutput() 
-            let inputValue = input.val(); 
-            if(!inputValue) {
-                displayFunc()
-                return
-            } 
-            
-            let inputArr = inputValue.trim().split(" ")
-            if(inputArr.length !== requiredLength) return
-
-            inputArr = inputArr.map(element => element === "T" ? 1 : element === "F" ? 0 : Number(element));
-
-            for (const element of inputArr) {
-                if (!/^-?\d+$/.test(element)) {
-                    return; 
-                }
+    function validateInput(inputValue, requiredLength=-1) {
+        if (!inputValue) {
+            displayFunc();
+            return null;
+        }
+    
+        let inputArr = inputValue.trim().split(" ");
+        if (requiredLength !== -1 && inputArr.length !== requiredLength) return null;
+    
+        inputArr = inputArr.map(element => element === "T" ? 1 : element === "F" ? 0 : Number(element));
+    
+        for (const element of inputArr) {
+            if (!/^-?\d+$/.test(element)) {
+                return null;
             }
+        }
+    
+        return inputArr.map(Number);
+    }
 
-            inputArr = inputArr.map(Number)
-
-            if(requiredLength === 1) {
+    function addInput(output, title, func, requiredLength = 1) {
+        const input = $('<input>').attr('type', 'text');
+    
+        input.on('input', function() {
+            enterFunc = () => {};
+            if (output === firstOutput) cleanupFirstOutput();
+    
+            const inputValue = input.val();
+            const inputArr = validateInput(inputValue, requiredLength);
+            if (inputArr === null) return;
+    
+            if (requiredLength === 1) {
                 enterFunc = () => func(inputArr[0]);
             } else {
                 enterFunc = () => func(inputArr);
             }
-    
         });
-        
-        output.append(input);
-        return input
+    
+        output.find('.controls').append($('<div class="input"></div>').append(`<h3>${title}</h3>`).append(input));
+    
+        return input;
     }
 
     function setupRun(selected, input, output) {
-        if(!selected || !input.val()) return [null, null]
-        const id = generateID()
-        LOGS[id] = []
-        output.empty()
-        const arr = input.val().split(" ").map(Number)
-        return [id, arr]
-    }
+        if (!selected || !input.val()) return [null, null];
+    
+        const validatedInput = validateInput(input.val()); 
+        if (validatedInput === null) return [null, null];
+    
+        const id = generateID();
+        LOGS[id] = [];
+        output.empty();
+        
  
+        if (firstOutput.find('.controls').length === 0) {
+            firstOutput.append($('<div class="controls"></div>'));
+        }
+
+        return [id, validatedInput];
+    }
+    
     function cleanupFirstOutput() {
-        $(firstOutput).children().filter(":not(button, input)").remove();
+        $(firstOutput).children().filter(":not(.controls)").remove();
         LOGS[globalID] = []
+    }
+
+    function selectGNODE(value) {
+        $('.node text')
+            .filter((_, element) => $(element).text() === value)
+            .prev('circle')
+            .attr('fill', 'blue');
     }
 
     function runStructs() {
@@ -153,8 +176,13 @@ $(document).ready(function() {
         globalID = id
 
         cleanupFirstOutput()
+        
+        addButton(firstOutput, "Display", () => {
+            $(firstOutput).children().filter(":not(.controls)").remove();
+        })
 
-        switch(selectedFirst) {
+
+        switch(selectedFirst) {    
             case "binary search tree":
                 tree = new BinarySearchTree() 
                 arr.forEach(nr => {
@@ -173,12 +201,12 @@ $(document).ready(function() {
                     })
                 })
 
-                addInput(firstOutput, "find: value", (inputVal) => {
+                addInput(firstOutput, "find( value )", (inputVal) => {
                     log(stringifyCircular(tree.find(inputVal)), id)
                     write(firstOutput, id)
                 })
 
-                addInput(firstOutput, "remove: value", (inputVal) => {
+                addInput(firstOutput, "remove( value )", (inputVal) => {
                     log("Before: ", id)
                     tree.display(msg => log(msg.replaceAll(" ", "-"), id))
                     tree.remove(tree.find(inputVal))
@@ -195,31 +223,31 @@ $(document).ready(function() {
                     DLL = new DoubleLinkedList(arr)
                 })
 
+
                 displayFunc = () => {
                     log(DLL.toArray(), id)
                     write(firstOutput, id, true)
                 }
 
-                const insertInput = addInput(firstOutput, "insert: value, index (-1 to len - 1)", inputArr => {
+                const insertInput = addInput(firstOutput, "insert( value, index [-1 to len - 1] )", inputArr => {
                     const targetNode = inputArr[1] === -1 ? -1 : DLL.getNodeByIndex(inputArr[1])
                     DLL.insert(inputArr[0], targetNode)
                     log(DLL.toArray(), id)
                     write(firstOutput, id, true)
                     insertInput.val("")
-                    
                 }, 2)
 
-                addInput(firstOutput, "getNodeByIndex: index (0 to len - 1)", inputVal => {
+                addInput(firstOutput, "getNodeByIndex( index [0 to len - 1] )", inputVal => {
                     log(stringifyCircular(DLL.getNodeByIndex(inputVal)), id)
                     write(firstOutput, id)
                 })
 
-                addInput(firstOutput, "find: value", inputVal => {
+                addInput(firstOutput, "find( value )", inputVal => {
                     log(stringifyCircular(DLL.find(inputVal)), id)
                     write(firstOutput, id)
                 })
 
-                addInput(firstOutput, "remove: value", inputVal => {
+                addInput(firstOutput, "remove( value )", inputVal => {
                     DLL.remove(DLL.find(inputVal))
                     displayFunc()
                 })
@@ -233,7 +261,7 @@ $(document).ready(function() {
                     graph = new Graph()
                 })
 
-                addInput(firstOutput, 'addNodePair: v1, v2, twoWay ("T"/"F")', inputArr => {
+                addInput(firstOutput, 'addNodePair( v1, v2, twoWay ["T" or "F"] )', inputArr => {
                     const one = inputArr[0]
                     const two = inputArr[1]
                     graph.insert( 
@@ -245,14 +273,14 @@ $(document).ready(function() {
                     displayFunc()
                 }, 3)
 
-                addInput(firstOutput, 'Breadth first search: value', inputVal => {
-                    log(graph.BFS(inputVal), id)
+                addInput(firstOutput, 'breadthFirstSearch( value )', inputVal => {
+                    log(graph.BFS(inputVal), id, selectGNODE)
                     write(firstOutput, id)
                 })
  
                 displayFunc = () => {
                     firstOutput.append("<div class='graph'></div>")
-                    networkGraph(graph.nodeList )
+                    networkGraph(graph.nodeList)
                 }
                 break
         }
@@ -291,5 +319,4 @@ $(document).ready(function() {
 
     firstInput.on("input", ()=>runStructs())
     lastInput.on("input", ()=>runAlgos())
-
 });

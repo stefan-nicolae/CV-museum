@@ -12,7 +12,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-        }
+        } 
 
         .container {
             background-color: var(--backgroundColor);
@@ -20,11 +20,11 @@
             min-height: 100vh;
             font-family: Helvetica;
             padding: 64px;
+            user-select: none;
         }
 
         h1  {
             color: var(--textColor);
-            user-select: none;
             margin-bottom: 8px;
         }
  
@@ -36,7 +36,6 @@
             color: var(--textColor);
             font-weight: bold;
             cursor: pointer;
-            user-select: none;
             text-transform: capitalize;
         }
 
@@ -125,16 +124,22 @@
             color: var(--darkerTextColor);
         }
 
-        .screen > p {
-            user-select: none;
-        }
-
-        h1, ul {
-            user-select: none;
-        }
-
         .copy {
             user-select: all;
+        }
+
+        div.controls {
+            display: flex;
+            align-items: flex-end;
+            margin-bottom: 16px;
+        }
+
+        div.controls h3 {
+            font-size: 75%;
+        }
+        div.controls button {
+            color: var(--highlightColor);
+            font-weight: 100;
         }
     </style>
     <script src="https://d3js.org/d3.v5.min.js"></script>
@@ -158,7 +163,8 @@
                 <menu>
                     <input class="first-input" type="text" value="4 1 5 3 9 2 8 6 1 5" placeholder="Example: 4 1 5 3 9 2 8 6 1 5">
                 </menu>
-                <div class="screen screen-first"></div>
+                <div class="screen screen-first">
+                </div>
             </section>
             <br>
             <h1>Algorithms</h1>

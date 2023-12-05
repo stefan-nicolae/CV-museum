@@ -34,6 +34,11 @@ $(document).ready(function(){
             disableOnInteraction: false, // Keep autoplay running even when user interacts with slides
         },
     });
+    galleryArray.forEach(function(item) {
+        $("#table-of-contents").find("ul").append(`<li><a href="#${item.galleryId}">${item.h3.html()}</a></li>`)
+    })
+
+    galleryArray.shift()
 
     function populateSwiper() {
         galleryArray.forEach(function(item) {
@@ -50,8 +55,5 @@ $(document).ready(function(){
 
     populateSwiper();
 
-    galleryArray.forEach(function(item) {
-        $("#table-of-contents").find("ul").append(`<li><a href="#${item.galleryId}">${item.h3.html()}</a></li>`)
-    })
 });
 
