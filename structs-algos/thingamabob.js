@@ -223,11 +223,13 @@ $(document).ready(function() {
                 })
 
                 addInput(firstOutput, "find( value )", (inputVal) => {
+                    log("Node Found:", id)
                     log(stringifyCircular(tree.find(inputVal)), id)
                     write(firstOutput, id)
                 })
 
                 addInput(firstOutput, "remove( value )", (inputVal) => {
+                    log("Value Removed:", id)
                     log("Before: ", id)
                     tree.display(msg => log(msg.replaceAll(" ", "-"), id))
                     tree.remove(tree.find(inputVal))
@@ -265,6 +267,7 @@ $(document).ready(function() {
                 })
 
                 addInput(firstOutput, "find( value )", inputVal => {
+                    log("Node Found:", id)
                     log(stringifyCircular(DLL.find(inputVal)), id)
                     write(firstOutput, id)
                 })
