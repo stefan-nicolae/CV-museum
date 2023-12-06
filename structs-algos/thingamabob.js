@@ -6,9 +6,9 @@ import { DoubleLinkedList } from "./data-structures/double-linked-list.js";
 import { Graph } from "./data-structures/graph2.js";
 import { Node as GraphNode } from "./data-structures/graph2.js";
 import { networkGraph } from "./thingamajig.js";
+import HashTable from "./data-structures/hashtables.js";
 
 const rootStyles = getComputedStyle(document.documentElement);
-
 const backgroundColor = rootStyles.getPropertyValue('--backgroundColor');
 const textColor = rootStyles.getPropertyValue('--textColor');
 const darkGray = rootStyles.getPropertyValue('--darkGray');
@@ -317,10 +317,39 @@ $(document).ready(function() {
                     networkGraph(graph.nodeList)
                 }
                 break
-        }
+            case "hashtables":
+                firstInput.prop("disabled", true);
+                hashtable = new HashTable()
+
+                addButton(firstOutput, "Reset", () => {
+                    hashtable = new HashTable()
+                })
+
+                let username, password
+                const usernameInput = addInput(firstOutput, "username")
+                const passwordInput = addInput(firstOutput, "password")
+
+                addButton(firstOutput, "Submit", () => {
+                    username = usernameInput.val()
+                    password = passwordInput.val()
+                    hashtable.insert(username, password)
+                })
+         
+
+                displayFunc = () => {
+                    log(hashtable.data.map((obj, index) => index + stringifyCircular(obj)), id)
+                    const silly_number = CryptoJS.SHA256(username + ';' + password).words[0]
+                    if(username) log(`index: hash (${silly_number}) % 100 = ${silly_number%100}`, id)
+                    write(firstOutput, id, 1)
+                    username = ""
+                    password = ""
+                }
+
+            }
 
         displayFunc()
         $('.screen-first input').on('focus', function() {
+            if(selectedFirst === "hashtables") return
             $('.screen-first input').val('');
             const containsParagraphOrGraph = firstOutput.find('p, .graph').length > 0;
 

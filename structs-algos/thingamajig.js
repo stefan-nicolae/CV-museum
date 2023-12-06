@@ -1,5 +1,4 @@
 const rootStyles = getComputedStyle(document.documentElement);
-
 const backgroundColor = rootStyles.getPropertyValue('--backgroundColor');
 const textColor = rootStyles.getPropertyValue('--textColor');
 const darkGray = rootStyles.getPropertyValue('--darkGray');

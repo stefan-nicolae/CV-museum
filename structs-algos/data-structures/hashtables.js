@@ -1,7 +1,6 @@
 import {DoubleLinkedList} from "./double-linked-list.js"
-import sha256 from 'crypto-js/sha256.js';
 
-export class HashTable {
+export default class HashTable {
     constructor(){
         this.data = []
         for(let i = 0; i < 99; i++) 
@@ -9,9 +8,10 @@ export class HashTable {
     }
 
     insert(username, password) {
-        const index = Math.abs(sha256(username + ';' + password).words[0]%100)
+        const index = Math.abs(CryptoJS.SHA256(username + ';' + password).words[0]%100)
         this.data[index].insert(username)
         console.log("Username " + username + " inserted")
+        console.log(this.data)
     }
 
     check(username, password) {
