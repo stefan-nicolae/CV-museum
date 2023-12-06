@@ -6,7 +6,7 @@ import { DoubleLinkedList } from "./data-structures/double-linked-list.js";
 import { Graph } from "./data-structures/graph2.js";
 import { Node as GraphNode } from "./data-structures/graph2.js";
 import { networkGraph } from "./thingamajig.js";
-import HashTable from "./data-structures/hashtables.js";
+import HashTable from "./data-structures/hashtable.js";
 
 const rootStyles = getComputedStyle(document.documentElement);
 const backgroundColor = rootStyles.getPropertyValue('--backgroundColor');
@@ -188,7 +188,7 @@ $(document).ready(function() {
 
         cleanupFirstOutput()
         
-        addButton(firstOutput, "Display", () => {
+        if(selectedFirst !== "graph" && selectedFirst !== "hashtable") addButton(firstOutput, "Display", () => {
             $(firstOutput).children().filter(":not(.controls)").remove();
         })
 
@@ -199,10 +199,20 @@ $(document).ready(function() {
                 arr.forEach(nr => {
                     tree.insert(nr)
                 })
+
+                const hideDashes = () => {
+                    $('.screen-first p').each(function() {
+                        const paragraph = $(this);
+                        const content = paragraph.text();
+                        const coloredContent = content.split('-').join('<span class="colored-dash">-</span>');
+                        paragraph.html(coloredContent);
+                    });
+                }
  
                 displayFunc = () => {
                     tree.display(msg => log(msg.replaceAll(" ", "-"), id))
                     write(firstOutput, id)
+                    hideDashes()
                 }
 
                 addButton(firstOutput, "Reload", () => {
@@ -224,6 +234,7 @@ $(document).ready(function() {
                     log("After: ", id)
                     tree.display(msg => log(msg.replaceAll(" ", "-"), id))
                     write(firstOutput, id)
+                    hideDashes()
                 })
 
                 break
@@ -317,7 +328,7 @@ $(document).ready(function() {
                     networkGraph(graph.nodeList)
                 }
                 break
-            case "hashtables":
+            case "hashtable":
                 firstInput.prop("disabled", true);
                 hashtable = new HashTable()
 
@@ -349,7 +360,7 @@ $(document).ready(function() {
 
         displayFunc()
         $('.screen-first input').on('focus', function() {
-            if(selectedFirst === "hashtables") return
+            if(selectedFirst === "hashtable") return
             $('.screen-first input').val('');
             const containsParagraphOrGraph = firstOutput.find('p, .graph').length > 0;
 
