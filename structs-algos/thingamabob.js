@@ -10,10 +10,9 @@ import HashTable from "./data-structures/hashtable.js";
 
 const rootStyles = getComputedStyle(document.documentElement);
 const backgroundColor = rootStyles.getPropertyValue('--backgroundColor');
-const textColor = rootStyles.getPropertyValue('--textColor');
 const darkGray = rootStyles.getPropertyValue('--darkGray');
 const highlightColor = rootStyles.getPropertyValue('--highlightColor');
-const darkerTextColor = rootStyles.getPropertyValue('--darkerTextColor');
+const textColor = rootStyles.getPropertyValue('--textColor');
 
 function scrollToBottom(element) {
     const $element = $(element);
@@ -94,7 +93,7 @@ $(document).ready(function() {
                 if(arr) msg = msg.join(' ')
                 const msgElement = $('<p>', {'text': msg}).get(0); 
                 output.append(msgElement);
-                scrollToBottom(currentOutput)
+                if(currentOutput === lastOutput) scrollToBottom(currentOutput)
             }
 
             if(!gradual) run()
@@ -297,36 +296,66 @@ $(document).ready(function() {
                 break
             case "graph":
                 graph = new Graph()
+
+                const addToGraph = (one, two, twoWay) => {
+                    graph.insert( 
+                        graph.firstNode ? graph.findNodeByValue(one) : new GraphNode(one),
+                        graph.findNodeByValue(two) ? graph.findNodeByValue(two) : new GraphNode(two),
+                        twoWay
+                    )
+                }
+
+                addToGraph(1, 2, 'T')
+                addToGraph(2, 3, 'F')
+
+
                 firstInput.prop("disabled", true);
 
                 addButton(firstOutput, "Reload", () => {
                     graph = new Graph()
+                    BFS.attr('placeholder', '')
+                    DFS.attr('placeholder', '')
+                })
+
+                addButton(firstOutput, "Reload DEMO", () => {
+                    graph = new Graph()
+                    addToGraph(1, 2, 'T')
+                    addToGraph(2, 3, 'F')
+                    BFS.attr('placeholder', 'Try searching for node 3')
+                    DFS.attr('placeholder', 'Try searching for node 3')
                 })
 
                 addInput(firstOutput, 'addNodePair( v1, v2, twoWay ["T" or "F"] )', inputArr => {
                     const one = inputArr[0]
                     const two = inputArr[1]
-                    graph.insert( 
-                        graph.firstNode ? graph.findNodeByValue(one) : new GraphNode(one),
-                        graph.findNodeByValue(two) ? graph.findNodeByValue(two) : new GraphNode(two),
-                        inputArr[2] 
-                    )
+                    const twoWay = inputArr[2]
+                    addToGraph(one, two, twoWay)
                     displayFunc()
                 }, 3)
 
-                addInput(firstOutput, 'breadthFirstSearch( value )', inputVal => {
+                const graphSearch = (inputVal, BFS = true) => {
                     GNODEtimer = 200
-                    log(graph.BFS(inputVal, val => selectGNODE(val)), id)
+                    const result = BFS ? graph.BFS(inputVal, val => selectGNODE(val)):graph.DFS(inputVal, val => selectGNODE(val))
+                    log(stringifyCircular(result), id)
                     displayFunc()
-                    write(stringifyCircular(firstOutput), id)
+                    write(firstOutput, id)
+                }
+
+                const BFS = addInput(firstOutput, 'breadthFirstSearch( value )', inputVal => {
+                    graphSearch(inputVal)
+                    BFS.attr('placeholder', '')
+                    DFS.attr('placeholder', '')
                 })
 
-                addInput(firstOutput, 'depthFirstSearch( value )', inputVal => {
-                    GNODEtimer = 200
-                    log(graph.DFS(inputVal, val => selectGNODE(val)), id)
-                    displayFunc()
-                    write(stringifyCircular(firstOutput), id)
+                const DFS = addInput(firstOutput, 'depthFirstSearch( value )', inputVal => {
+                    graphSearch(inputVal, 0)
+                    DFS.attr('placeholder', '')
+                    BFS.attr('placeholder', '')
                 })
+                
+
+                BFS.attr('placeholder', 'Try searching for node 3')
+                DFS.attr('placeholder', 'Try searching for node 3')
 
                 addInput(firstOutput, 'check( v1, v2, twoWay ["T" or "F"] )', inputArr => {
                     const one = inputArr[0]

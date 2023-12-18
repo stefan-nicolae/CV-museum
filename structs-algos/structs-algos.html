@@ -13,97 +13,32 @@
             margin: 0;
             padding: 0;
         } 
-
+        
         .container {
+            font-family: Helvetica;
             background-color: var(--backgroundColor);
             height: 1200px;
             min-height: 100vh;
-            font-family: Helvetica;
             padding: 64px;
             user-select: none;
         }
 
-        h1  {
-            color: var(--textColor);
-            margin-bottom: 8px;
-        }
- 
+
+
+
+
+
+
+
+
         button {
             padding: 4px 8px;
             border-radius: 0;
             border: none;
             background-color: var(--darkGray);
             color: var(--textColor);
-            font-weight: bold;
             cursor: pointer;
             text-transform: capitalize;
-        }
-
-        button:hover {
-            background-color: var(--backgroundColor);
-        }
-
-        section {
-            padding: 8px;
-            height: 320px;
-            border: 1px solid var(--darkGray);
-            display: flex;
-            flex-direction: column;
-            border-top-left-radius: 0px; 
-            border-top-right-radius: 8px; 
-            border-bottom-right-radius: 8px; 
-            border-bottom-left-radius: 8px; 
-        }
-
-        button.highlight {
-            background-color: var(--highlightColor);
-        }
-
-        section menu input {
-            padding: 4px 8px;
-            margin-bottom: 8px;
-            background-color: var(--backgroundColor);
-            border: 1px solid var(--darkGray);
-            color: var(--darkerTextColor);
-        }
-
-        section menu input:disabled {
-            opacity: 0.2; 
-        }
-
-        section .screen {
-            padding: 8px;
-            flex: 1;
-            background-color: var(--backgroundColor);
-            color: var(--highlightColor);
-            width: 100%;
-            line-height: 24px;
-            overflow-y: scroll;
-            font-family: monospace;
-            font-weight: bold;
-        }
-
-        ul {
-            color: var(--textColor);
-            margin-bottom: 8px;
-            margin-top: 16px;
-            margin-left: 24px;
-            line-height: 24px;
-        }
-
-        span.copy {
-            background-color: var(--darkGray);
-            color: var(--darkerTextColor);
-            padding: 0 4px;
-        }
-
-        input, button {
-            border-radius: 8px;
-        }
-
-        .screen button {
-            margin-right: 8px;
-            color: var(--darkerTextColor);
         }
 
         input {
@@ -116,40 +51,144 @@
             width: 240px;
         }
 
+        input, button {
+            border-radius: 8px;
+            font-family: Helvetica;
+        }
+
+        button:hover, input:hover {
+            opacity: 0.7;
+        }
         
+        button.highlight {
+            background-color: var(--highlightColor);
+        }
+
+        ul {
+            color: var(--textColor);
+            margin-bottom: 8px;
+            margin-top: 16px;
+            margin-left: 24px;
+            line-height: 24px;
+        }
+
+        span.copy {
+            background-color: var(--darkGray);
+            color: var(--textColor);
+            padding: 0 4px;
+        }
+        
+        .copy {
+            user-select: all;
+        }
+
+
+
+
+
+
+
+
+
+
+        h1 {
+            color: var(--textColor);
+            margin-bottom: 8px;
+        }
+
         nav button {
             border-top-left-radius: 8px; 
             border-top-right-radius: 8px; 
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
+
+        }
+ 
+
+
+
+
+
+
+        section {
+            height: 320px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        section:first-of-type {
+            margin-bottom: 128px;
+        }
+        
+        section menu {
+            border: 1px solid var(--darkGray);
+            border-top-left-radius: 0px; 
+            border-top-right-radius: 8px; 
+            border-bottom-right-radius: 8px; 
+            border-bottom-left-radius: 8px; 
+            padding: 8px;
+        }
+
+        section menu input {
+            padding: 4px 8px;
+            background-color: var(--backgroundColor);
+            width: 100%;
+            color: var(--textColor);
+        }
+
+        section menu input:disabled {
+            opacity: 0.2; 
+        }
+
+        section .screen {
+            padding: 8px 16px;
+            flex: 1;
+            color: var(--textColor);
+            width: 100%;
+            line-height: 24px;
+            overflow-y: scroll;
+            font-family: monospace;
+            border: 1px solid var(--darkGray);
+            border-radius: 8px;
+            margin-top: 16px;
+        }
+
+        .screen button {
+            margin-right: 8px;
+            color: var(--textColor);
         }
         
         .screen input::placeholder {
-            color: var(--darkerTextColor);
-        }
-
-        .copy {
-            user-select: all;
-        }
-
-        div.controls {
-            display: flex;
-            align-items: flex-end;
-            margin-bottom: 16px;
-        }
-
-        div.controls h3 {
-            font-size: 75%;
-        }
-
-        div.controls button {
-            color: var(--highlightColor);
-            font-weight: 100;
+            color: var(--textColor);
         }
 
         .screen .colored-dash {
             display: inline;
             color: var(--backgroundColor);
+        }
+
+        div.controls {
+            display: flex;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            padding-bottom: 8px;
+            margin-bottom: 8px;
+            border-bottom: 1px solid var(--darkGray);
+        }
+
+        div.controls h3 {
+            font-size: 75%;
+            color: var(--textColor);
+
+        }
+
+        div.controls button {
+            color: var(--textColor);
+            font-family: monospace;
+        }
+
+        div.controls button, input {
+            margin-bottom: 8px;
         }
 
     </style>

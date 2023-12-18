@@ -3,7 +3,6 @@ const backgroundColor = rootStyles.getPropertyValue('--backgroundColor');
 const textColor = rootStyles.getPropertyValue('--textColor');
 const darkGray = rootStyles.getPropertyValue('--darkGray');
 const highlightColor = rootStyles.getPropertyValue('--highlightColor');
-const darkerTextColor = rootStyles.getPropertyValue('--darkerTextColor');
 
 export function networkGraph(nodeList) {
     let counter = 0
