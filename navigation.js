@@ -34,6 +34,7 @@ $(document).ready(function(){
             disableOnInteraction: false, 
         },
     });
+
     galleryArray.forEach(function(item) {
         $("#table-of-contents").find("ul").append(`<li><a href="#${item.galleryId}">${item.h3.html()}</a></li>`)
     })
@@ -47,6 +48,7 @@ $(document).ready(function(){
                     <h3>${item.name}</h3>
                     <img src="${item.firstImageSrc}" alt="${item.name}">
                     <a href="#${item.galleryId}"></a>
+                    <iconify-icon icon="gridicons:arrow-down"></iconify-icon>
                 </div>
             `;
             $(".swiper-wrapper").append(slide)
@@ -55,5 +57,10 @@ $(document).ready(function(){
 
     populateSwiper();
 
+    const iconElement = $('<iconify-icon>')
+    .attr('icon', 'gridicons:arrow-down') 
+    .addClass('link-icon')
+
+    $('.gotoLink').before(iconElement);
 });
 

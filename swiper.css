@@ -31,6 +31,14 @@
     border-radius: 8px;
 }
 
+.swiper-slide iconify-icon {
+    font-size: 48px;
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    color: var(--highlightColor);
+}
+
 .swiper-container {
     overflow: hidden;
 }

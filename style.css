@@ -41,8 +41,15 @@ a {
 }
 
 .gotoLink {
-    text-decoration: underline;
+    font-size: 150%;
 }
+
+.link-icon {
+    color: var(--highlightColor);
+    transform: rotate(-135deg);
+    font-size: 150%;
+}
+
 
 a:hover {
     opacity: 0.5;
@@ -116,11 +123,14 @@ li, span {
 }
 
 #go-up {
-    position: sticky;
-    top: 8px;
+    position: fixed;
+    bottom: 0;
     float: right;
     z-index: 2;
     font-family: Helvetica-Bold;
+    font-size: 500%;
+    transform: rotate(180deg);
+    right: 0;
 }
 
 @media (min-width: 769px) {
@@ -128,9 +138,9 @@ li, span {
         margin-left: 240px;
         margin-right: 240px;
     }
-    
+
     #go-up {
-        right: 270px;
+        right: 255px;
     }
 }
 

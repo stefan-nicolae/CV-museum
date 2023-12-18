@@ -43,3 +43,4 @@ document.querySelectorAll('section').forEach(section => {
         firstAnchor.classList.add("gotoLink")
     }
 });
+
