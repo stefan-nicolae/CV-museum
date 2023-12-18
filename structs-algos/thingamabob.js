@@ -15,6 +15,11 @@ const darkGray = rootStyles.getPropertyValue('--darkGray');
 const highlightColor = rootStyles.getPropertyValue('--highlightColor');
 const darkerTextColor = rootStyles.getPropertyValue('--darkerTextColor');
 
+function scrollToBottom(element) {
+    const $element = $(element);
+    $element.scrollTop($element.prop('scrollHeight'));
+}
+
 function stringifyCircular(obj) {
     const seen = new Map();
   
@@ -47,7 +52,7 @@ $(document).ready(function() {
     const lastInput = $(".last-input")
 
     const LOGS = {}
-    let tree, DLL, graph, hashtable, globalID, displayFunc, enterFunc = () => {}, GNODEtimer
+    let tree, DLL, graph, hashtable, globalID, displayFunc, enterFunc = () => {}, GNODEtimer, currentOutput
 
     const listener = function(event) {
         if (event.key === 'Enter') {
@@ -83,11 +88,21 @@ $(document).ready(function() {
         LOGS[id].push(msg)
     }
 
-    function write(output, id, arr=false) {
-        LOGS[id].forEach(msg => {
-            if(arr) msg = msg.join(' ')
-            const msgElement = $('<p>', {'text': msg}).get(0); 
-            output.append(msgElement);
+    function write(output, id, arr=false, gradual=false) {
+        LOGS[id].forEach((msg, index) => {
+            const run = () => {
+                if(arr) msg = msg.join(' ')
+                const msgElement = $('<p>', {'text': msg}).get(0); 
+                output.append(msgElement);
+                scrollToBottom(currentOutput)
+            }
+
+            if(!gradual) run()
+            else {
+                setTimeout(() => {
+                    run()
+                }, index * 100)
+            }
         });
     }
     
@@ -181,6 +196,7 @@ $(document).ready(function() {
     }
 
     function runStructs() {
+        currentOutput = firstOutput
         firstInput.prop("disabled", false);
         const [id, arr] = setupRun(selectedFirst, firstInput, firstOutput)
         if(id === null) return
@@ -213,6 +229,7 @@ $(document).ready(function() {
                     tree.display(msg => log(msg.replaceAll(" ", "-"), id))
                     write(firstOutput, id)
                     hideDashes()
+            
                 }
 
                 addButton(firstOutput, "Reload", () => {
@@ -373,6 +390,7 @@ $(document).ready(function() {
     }
 
     function runAlgos() {
+        currentOutput = lastOutput
         const [id, arr] = setupRun(selectedLast, lastInput, lastOutput)
         if(id === null) return
 
@@ -390,7 +408,7 @@ $(document).ready(function() {
         }
         if(func) {
             func(arr, (msg) => log(msg, id))
-            write(lastOutput, id, 1)
+            write(lastOutput, id, 1, 1)
         }
     }
 
