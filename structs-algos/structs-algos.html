@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Demo</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <style>
         @import url("../template.css");
 
@@ -86,7 +87,9 @@
 
 
 
-
+        h3 {
+            color: var(--darkGray);
+        }
 
 
         h1 {
@@ -112,6 +115,7 @@
             height: 480px;
             display: flex;
             flex-direction: column;
+            position: relative;
         }
 
         section:first-of-type {
@@ -188,6 +192,19 @@
         div.controls button, input {
             margin-bottom: 8px;
         }
+        
+        .arrow {
+            font-size: 48px;
+            position: absolute;
+            bottom: 0;
+            right: 16px;
+            color: var(--textColor);
+            cursor: pointer;
+        }
+
+        .arrow:hover {
+            color: var(--darkGray);
+        }
 
     </style>
     <script src="https://d3js.org/d3.v5.min.js"></script>
@@ -209,10 +226,11 @@
 
             <section>
                 <menu>
+                    <h3>INPUT</h1>
                     <input class="first-input" type="text" value="4 1 5 3 9 2 8 6 1 5" placeholder="Example: 4 1 5 3 9 2 8 6 1 5">
                 </menu>
-                <div class="screen screen-first">
-                </div>
+                <div class="screen screen-first"> </div>
+                <span class="arrow arrow-1"><iconify-icon icon="gridicons:arrow-up"></iconify-icon></span>
             </section>
             <br>
             <h1>Algorithms</h1>
@@ -227,15 +245,39 @@
 
             <section>
                 <menu>
+                    <h3>INPUT</h1>
                     <input class="last-input" type="text" value="42 17 56 33 91 24 8 69 12 5" placeholder="Example: 42 17 56 33 91 24 8 69 12 5">
                 </menu>
                 <div class="screen screen-last"></div>
+                <span class="arrow arrow-2"><iconify-icon icon="gridicons:arrow-up"></iconify-icon></span>
             </section>
     </div>
-
     <script src="./crypto-js/core.js"></script>
     <script src="./crypto-js/sha256.js"></script>
     <script type="module" src="./thingamabob.js"></script>
     <script type="module" src="./thingamajig.js"></script>
+    <script>
+        function scrollToTop(className) {
+            const targetDivs = document.getElementsByClassName(className);
+            
+            if (targetDivs.length > 0) {
+                Array.from(targetDivs).forEach(targetDiv => {
+                    targetDiv.scrollTop = 0;
+                });
+            } else {
+                console.error(`Elements with class '${className}' not found.`);
+            }
+        }
+
+
+        $(".arrow-1").click(() => {
+            scrollToTop("screen-first")
+        })
+
+        
+        $(".arrow-2").click(() => {
+            scrollToTop("screen-last")
+        })
+    </script>
 </body>
 </html>

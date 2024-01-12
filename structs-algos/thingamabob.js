@@ -71,8 +71,10 @@ $(document).ready(function() {
         $(button).click(() => {
             $("nav:first-of-type button").removeClass("highlight");
             $(button).addClass("highlight");
-            selectedFirst = button.textContent
-            runStructs()
+            if(button.textContent !== selectedFirst) {
+                selectedFirst = button.textContent
+                runStructs()
+            }
         })
         if(index===0) $(button).click()
     });
@@ -81,8 +83,10 @@ $(document).ready(function() {
         $(button).click(() => {
             $("nav:last-of-type button").removeClass("highlight");
             $(button).addClass("highlight");
-            selectedLast = button.textContent
-            runAlgos()
+            if(button.textContent !== selectedLast) {
+                selectedLast = button.textContent
+                runAlgos()
+            }
         })
         if(index===0) $(button).click()
     });
