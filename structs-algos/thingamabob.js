@@ -55,7 +55,7 @@ $(document).ready(function() {
     const lastInput = $(".last-input")
 
     const LOGS = {}
-    let tree, DLL, graph, hashtable, globalID, displayFunc, enterFunc = () => {}, GNODEtimer, currentOutput
+    let tree, DLL, graph, hashtable, globalID, displayFunc, enterFunc = () => {}, GNODEtimer, currentOutput, isSortingDone = true
 
     const listener = function(event) {
         if (event.key === 'Enter' && selectedFirst !== "hashtable") {
@@ -81,7 +81,7 @@ $(document).ready(function() {
 
     $("nav:last-of-type button").each(function(index, button) {
         $(button).click(() => {
-            if(button.textContent !== selectedLast) {
+            if(button.textContent !== selectedLast && isSortingDone) {
                 $("nav:last-of-type button").removeClass("highlight");
                 $(button).addClass("highlight");
                 selectedLast = button.textContent
@@ -96,18 +96,23 @@ $(document).ready(function() {
     }
 
     function write(output, id, arr=false, gradual=false) {
+        if(output === lastOutput) isSortingDone = false
+        const LENGTH = LOGS[id].length
         LOGS[id].forEach((msg, index) => {
-            const run = () => {
+            const run = (index) => {
                 if(arr) msg = msg.join(' ')
                 const msgElement = $('<p>', {'text': msg}).get(0); 
                 output.append(msgElement);
                 if(currentOutput === lastOutput) scrollToBottom(currentOutput)
+                if(output === lastOutput) {
+                    if(index === LENGTH - 1) isSortingDone = true
+                }
             }
 
-            if(!gradual) run()
+            if(output !== lastOutput) run()
             else {
                 setTimeout(() => {
-                    run()
+                    run(index)
                 }, index * 100)
             }
         });
