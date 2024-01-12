@@ -14,6 +14,10 @@ const darkGray = rootStyles.getPropertyValue('--darkGray');
 const highlightColor = rootStyles.getPropertyValue('--highlightColor');
 const textColor = rootStyles.getPropertyValue('--textColor');
 
+function isNonEmptyString(value) {
+    return typeof value === 'string' && value.trim().length > 0;
+}
+
 function scrollToBottom(element) {
     const $element = $(element);
     $element.scrollTop($element.prop('scrollHeight'));
@@ -54,7 +58,7 @@ $(document).ready(function() {
     let tree, DLL, graph, hashtable, globalID, displayFunc, enterFunc = () => {}, GNODEtimer, currentOutput
 
     const listener = function(event) {
-        if (event.key === 'Enter') {
+        if (event.key === 'Enter' && selectedFirst !== "hashtable") {
             $('.screen-first input').val('');
             enterFunc();
             enterFunc = () => {}
@@ -103,6 +107,7 @@ $(document).ready(function() {
                 }, index * 100)
             }
         });
+        LOGS[id] = [];
     }
     
     function addButton(output, title, func) {
@@ -123,8 +128,9 @@ $(document).ready(function() {
             displayFunc();
             return null;
         }
-    
+        if(inputValue.startsWith(" ") || inputValue.endsWith(" ")) return null
         let inputArr = inputValue.trim().split(" ");
+        if(inputArr.includes("")) return null
         if (requiredLength !== -1 && inputArr.length !== requiredLength) return null;
     
         inputArr = inputArr.map(element => element === "T" ? 1 : element === "F" ? 0 : Number(element));
@@ -138,8 +144,8 @@ $(document).ready(function() {
         return inputArr.map(Number);
     }
 
-    function addInput(output, title, func, requiredLength = 1) {
-        const input = $('<input>').attr('type', 'text');
+    function addInput(output, title, placheolder, func, requiredLength = 1) {
+        const input = $('<input>').attr('type', 'text').attr('placeholder', placheolder);
     
         input.on('input', function() {
             enterFunc = () => {};
@@ -238,13 +244,13 @@ $(document).ready(function() {
                     })
                 })
 
-                addInput(firstOutput, "find( value )", (inputVal) => {
+                addInput(firstOutput, "find(value)", "4", (inputVal) => {
                     log("Node Found:", id)
                     log(stringifyCircular(tree.find(inputVal)), id)
                     write(firstOutput, id)
                 })
 
-                addInput(firstOutput, "remove( value )", (inputVal) => {
+                addInput(firstOutput, "remove(value)", "4", (inputVal) => {
                     log("Value Removed:", id)
                     log("Before: ", id)
                     tree.display(msg => log(msg.replaceAll(" ", "-"), id))
@@ -268,8 +274,21 @@ $(document).ready(function() {
                     log(DLL.toArray(), id)
                     write(firstOutput, id, true)
                 }
+                
+              addInput(firstOutput, "find(value)", "4", inputVal => {
+                    log("Node Found:", id)
+                    log(stringifyCircular(DLL.find(inputVal)), id)
+                    write(firstOutput, id)
+                })
 
-                const insertInput = addInput(firstOutput, "insert( value, index [-1 to len - 1] )", inputArr => {
+                addInput(firstOutput, "remove(value)","4", inputVal => {
+                    log("Node Removed:", id)
+                    write(firstOutput, id)
+                    DLL.remove(DLL.find(inputVal))
+                    displayFunc()
+                })
+
+                const insertInput = addInput(firstOutput, "insert(value, index [-1 to len - 1])", "3 0", inputArr => {
                     const targetNode = inputArr[1] === -1 ? -1 : DLL.getNodeByIndex(inputArr[1])
                     DLL.insert(inputArr[0], targetNode)
                     log(DLL.toArray(), id)
@@ -277,21 +296,12 @@ $(document).ready(function() {
                     insertInput.val("")
                 }, 2)
 
-                addInput(firstOutput, "getNodeByIndex( index [0 to len - 1] )", inputVal => {
+                addInput(firstOutput, "getNodeByIndex(index [0 to len - 1])", "3", inputVal => {
                     log(stringifyCircular(DLL.getNodeByIndex(inputVal)), id)
                     write(firstOutput, id)
                 })
 
-                addInput(firstOutput, "find( value )", inputVal => {
-                    log("Node Found:", id)
-                    log(stringifyCircular(DLL.find(inputVal)), id)
-                    write(firstOutput, id)
-                })
-
-                addInput(firstOutput, "remove( value )", inputVal => {
-                    DLL.remove(DLL.find(inputVal))
-                    displayFunc()
-                })
+  
 
                 break
             case "graph":
@@ -305,27 +315,23 @@ $(document).ready(function() {
                     )
                 }
 
-                addToGraph(1, 2, 'T')
-                addToGraph(2, 3, 'F')
-
-
                 firstInput.prop("disabled", true);
 
                 addButton(firstOutput, "Reload", () => {
                     graph = new Graph()
-                    BFS.attr('placeholder', '')
-                    DFS.attr('placeholder', '')
                 })
 
-                addButton(firstOutput, "Reload DEMO", () => {
+                const reloadDemo = addButton(firstOutput, "Reload DEMO", () => {
                     graph = new Graph()
                     addToGraph(1, 2, 'T')
                     addToGraph(2, 3, 'F')
-                    BFS.attr('placeholder', 'Try searching for node 3')
-                    DFS.attr('placeholder', 'Try searching for node 3')
                 })
 
-                addInput(firstOutput, 'addNodePair( v1, v2, twoWay ["T" or "F"] )', inputArr => {
+                setTimeout(() => {
+                    reloadDemo.click()
+                },200)
+
+                addInput(firstOutput, 'addNodePair(v1, v2, twoWay ["T" or "F"])', "3 4 F", inputArr => {
                     const one = inputArr[0]
                     const two = inputArr[1]
                     const twoWay = inputArr[2]
@@ -341,34 +347,39 @@ $(document).ready(function() {
                     write(firstOutput, id)
                 }
 
-                const BFS = addInput(firstOutput, 'breadthFirstSearch( value )', inputVal => {
+                addInput(firstOutput, 'breadthFirstSearch(value)', "3", inputVal => {
                     graphSearch(inputVal)
-                    BFS.attr('placeholder', '')
-                    DFS.attr('placeholder', '')
+            
                 })
 
-                const DFS = addInput(firstOutput, 'depthFirstSearch( value )', inputVal => {
+                addInput(firstOutput, 'depthFirstSearch(value)', "3", inputVal => {
                     graphSearch(inputVal, 0)
-                    DFS.attr('placeholder', '')
-                    BFS.attr('placeholder', '')
+
                 })
                 
-
-                BFS.attr('placeholder', 'Try searching for node 3')
-                DFS.attr('placeholder', 'Try searching for node 3')
-
-                addInput(firstOutput, 'check( v1, v2, twoWay ["T" or "F"] )', inputArr => {
+                addInput(firstOutput, 'check(v1, v2, twoWay ["T" or "F"])', "3 4 F", inputArr => {
                     const one = inputArr[0]
                     const two = inputArr[1]
-                    displayFunc()
-                    log(graph.check(
-                        graph.findNodeByValue(one),
-                        graph.findNodeByValue(two),
-                        inputArr[2]
-                    ), id)
+                    let result = false
+                    try {
+                        result = graph.check(
+                            graph.findNodeByValue(one),
+                            graph.findNodeByValue(two),
+                            inputArr[2]
+                        )
+                    } catch(err) {
+
+                    }
+                    log(result, id)
                     write(firstOutput, id)
+                    displayFunc()
                 }, 3)   
  
+                addInput(firstOutput, 'remove(value)', "3", value => {
+                    graph.remove(graph.findNodeByValue(value))
+                    displayFunc()
+                })
+
                 displayFunc = () => {
                     $('.node text')
                         .prev('circle')
@@ -386,28 +397,78 @@ $(document).ready(function() {
                 })
 
                 let username, password
-                const usernameInput = addInput(firstOutput, "username")
-                const passwordInput = addInput(firstOutput, "password")
+                var usernameInput = addInput(firstOutput, "username", "John")
+                var passwordInput = addInput(firstOutput, "password", "cat123")
+
+                console.log(passwordInput,usernameInput)
 
                 addButton(firstOutput, "Submit", () => {
-                    username = usernameInput.val()
-                    password = passwordInput.val()
-                    hashtable.insert(username, password)
+                    username = $(usernameInput).val()
+                    password = $(passwordInput).val()
+                    $('.screen-first input').val('');
+                    if(isNonEmptyString(username) && isNonEmptyString(password) && !hashtable.check(username, password))
+                        hashtable.insert(username, password)
+                })
+
+                let check = false
+         
+                addButton(firstOutput, "Check", () => {
+                    username = $(usernameInput).val()
+                    password = $(passwordInput).val()
+                    $('.screen-first input').val('');
+                    if(isNonEmptyString(username) && isNonEmptyString(password))
+                    {
+                        log(hashtable.check(username, password), id)
+                        write(firstOutput, id)
+                        check = true
+                    }
+                })
+
+                addButton(firstOutput, "Remove", () => {
+                    username = $(usernameInput).val()
+                    password = $(passwordInput).val()
+                    $('.screen-first input').val('');
+                    if(isNonEmptyString(username) && isNonEmptyString(password) && hashtable.check(username, password))
+                        hashtable.remove(username, password)
                 })
          
 
                 displayFunc = () => {
-                    log(hashtable.data.map((obj, index) => index + stringifyCircular(obj)), id)
-                    const silly_number = CryptoJS.SHA256(username + ';' + password).words[0]
-                    if(username) log(`index: hash (${silly_number}) % 100 = ${silly_number%100}`, id)
-                    write(firstOutput, id, 1)
+
+                    if(!check) {
+                        const silly_number = CryptoJS.SHA256(username + ';' + password).words[0]
+                        hashtable.data.forEach((obj, index) => {
+                            log(
+                                index + stringifyCircular(obj)
+                            , id)
+                            if(username && password && index == silly_number%100) {                
+                                log(`index: hash (${silly_number}) % 100 = ${Math.abs(silly_number%100)}`, id)
+                            }
+                        })
+                        write(firstOutput, id)
+
+                        if(username && password) {
+                            const targetParagraph = $('.screen-first p').filter(function() {
+                                return $(this).text().trim().startsWith(Math.abs(silly_number%100));
+                            });
+                            
+                            if (targetParagraph.length > 0) {
+                                const topOffset = targetParagraph.offset().top - $('.screen-first').offset().top;
+                                
+                                $('.screen-first').animate({
+                                    scrollTop: topOffset
+                                }, 'slow');
+                            }
+                        }
+                    } 
                     username = ""
                     password = ""
+                    check = false
                 }
-
             }
 
         displayFunc()
+
         $('.screen-first input').on('focus', function() {
             if(selectedFirst === "hashtable") return
             $('.screen-first input').val('');

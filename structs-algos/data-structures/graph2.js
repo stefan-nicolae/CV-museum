@@ -14,7 +14,7 @@ export class Graph {
         if (!myArray.includes(newValue)) myArray.push(newValue);
     }
 
-    find(node) {
+    exists(node) {
         return this.nodeList.includes(node)
     }
 
@@ -24,8 +24,8 @@ export class Graph {
 
     insert(node1, node2, twoWay=true) {
         if(node1.value === node2.value) return
-        if(!this.find(node1) && !this.firstNode) this.firstNode = node1 
-        else if(!this.find(node1) && this.firstNode) return
+        if(!this.exists(node1) && !this.firstNode) this.firstNode = node1 
+        else if(!this.exists(node1) && this.firstNode) return
         
         this._push(this.nodeList, node1)
         this._push(this.nodeList, node2)
@@ -68,5 +68,32 @@ export class Graph {
             })
         }
         return resultArr
+    }
+    
+    remove(nodeToGo) {
+        if(this.exists(nodeToGo)) {
+            this.nodeList.forEach((node, i) => {
+                if(node === nodeToGo) {
+                    this.nodeList[i].friends.forEach(friend => {
+                        let execute = true
+                        this.nodeList.forEach(someone => {
+                            if(someone.friends.includes(friend) && someone !== nodeToGo) {
+                                execute = false
+                                return
+                            }
+                        })
+                        if(execute) this.remove(friend)
+                    })
+                    this.nodeList.splice(i, 1)
+                }
+                else {
+                    this.nodeList[i].friends.forEach((friend, j) => {
+                        if(friend === nodeToGo) {
+                            this.nodeList[i].friends.splice(j, 1)
+                        }
+                    })
+                }
+            })
+        }
     }
 }

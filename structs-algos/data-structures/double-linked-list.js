@@ -9,7 +9,7 @@ class Node {
 export class DoubleLinkedList {
     constructor(valuesArray = []) {
         this.lastNode = undefined
-        valuesArray.forEach(node => this.insert(node))
+        valuesArray.forEach(value => this.insert(value))
     }
 
     insert(value, targetNode = this.lastNode) {
@@ -90,8 +90,9 @@ export class DoubleLinkedList {
         if (node.nextNode) {
           node.nextNode.prevNode = node.prevNode;
         }
-        node.prevNode = null;
-        node.nextNode = null;
+        node.prevNode = undefined
+        node.nextNode = undefined
+        node.value = undefined
       }
        
 }
