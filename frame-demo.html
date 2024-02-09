@@ -91,7 +91,7 @@
             }
             else if(name === "chat") {
                 ifrm.setAttribute("src",
-                `${domain}/nologin+chatID=[${ID}]`
+                `${domain}/?keywords=nologin&chatID=${ID}`
                 )
             }
             ifrm.setAttribute("id", frameID)
