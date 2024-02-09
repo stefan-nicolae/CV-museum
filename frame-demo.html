@@ -38,15 +38,26 @@
             margin-right: 10px;
         }
 
+        h1 {
+            color: var(--textColor);
+            font-family: helvetica;
+            width: 70vw;
+            margin: auto;
+        }
+
         @media (max-width: 768px) and (orientation: portrait) {
             .chats {
                 width: 170%;
+            }
+            h1 {
+                font-size: 70%;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <h1>The two clients shown have been automatically connected so that you can experience the application from the perspectives of both users.</h1>
         <section class="chats"></section>
     </div>
 </body>
