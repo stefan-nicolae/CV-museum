@@ -43,6 +43,7 @@
             font-family: helvetica;
             width: 70vw;
             margin: auto;
+            margin-bottom: 16px;
         }
 
         @media (max-width: 768px) and (orientation: portrait) {
@@ -57,11 +58,12 @@
 </head>
 <body>
     <div class="container">
-        <h1>The two clients shown have been automatically connected so that you can experience the application from the perspectives of both users.</h1>
+        <h1 id="instructions"></h1>
         <section class="chats"></section>
     </div>
 </body>
 <script>
+        const instructions = document.querySelector("#instructions")
         const queryString = window.location.search;
 
         const params = new URLSearchParams(queryString);
@@ -99,11 +101,14 @@
                 ifrm.setAttribute("src",
                     `${domain}/?roomID=${ID}`
                 )
+                instructions.textContent = "Try moving the white piece. The clients are already added to each other."
             }
             else if(name === "chat") {
                 ifrm.setAttribute("src",
-                `${domain}/?keywords=nologin&chatID=${ID}`
+                    `${domain}/?keywords=nologin&chatID=${ID}`
                 )
+                instructions.textContent = "Try sending a message. The clients are already added to each other."
+
             }
             ifrm.setAttribute("id", frameID)
             return ifrm
