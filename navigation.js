@@ -3,7 +3,7 @@ $(document).ready(function(){
 
     $("section").each(function(){
         var sectionTitle = $(this).find('h3').text();
-        var sectionId = $(this).find('h3').attr('id');
+        var sectionId = $(this).attr('id');
         var firstImageSrc = $(this).find('.gallery img:first').attr('src');
         
         var galleryObject = {
@@ -17,10 +17,11 @@ $(document).ready(function(){
     });
 
     galleryArray.shift()
+    galleryArray.shift()
 
     var swiper = new Swiper('.swiper-container', {
-        slidesPerView: 3,
-        spaceBetween: 10,
+        slidesPerView: 1,
+        spaceBetween: "4px",
         pagination: {
             el: '.swiper-pagination',
             clickable: true,

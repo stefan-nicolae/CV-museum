@@ -1,0 +1,361 @@
+/* ToC */
+section#table-of-contents {
+    background: url(./images/makeup/table\ of\ content.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+section#table-of-contents .square {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 48%;
+    width: 40%;
+}
+
+/* this */
+
+section#this .square {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 48%;
+    width: 30%;
+}
+
+/* chess */
+
+section#chess-app {
+    background: url(./images/makeup/chess.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+section#chess-app .square {
+    top: 10%;
+    height: 60%;
+}
+
+section#chess-app .square:first-of-type {
+    width: 30%;
+    left: 5%;
+}
+
+section#chess-app .square:last-of-type {
+    right: 5%;
+    width: 30%;
+}
+
+section#chess-app .gallery {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+section#chess-app .gallery > div {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+}
+
+/* chat */
+
+section#chat {
+    background: url(./images/makeup/chat.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+section#chat .transparent {
+    opacity: 0.8;
+}
+
+section#chat .square {
+    top: 10%;
+    height: 60%;
+}
+
+section#chat .square:first-of-type {
+    width: 30%;
+    left: 5%;
+}
+
+section#chat .square:last-of-type {
+    right: 5%;
+    width: 50%;
+}
+
+section#chat .gallery > div {
+    display: flex;
+    height: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+section#chat img {
+    height: 50%;
+}
+
+/* olx */
+
+section#olx {
+    background: url(./images/makeup/olx\ sau\ chat.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+section#olx .square:first-of-type {
+    width: 30%;
+    height: 30%;
+    top: 35%;
+    right: 2%;
+}
+
+section#olx .square:last-of-type {
+    left: 10%;
+    width: 45%;
+    height: 60%;
+    top: 20%;
+}
+
+section#olx .square:first-of-type .transparent {
+    opacity: 0.8;
+}
+
+section#olx .gallery > div {
+    display: flex;
+    height: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+section#olx img {
+    height: 50%;
+    filter: brightness(1.2);
+}
+
+/* algos */
+
+section#algorithms-structures {
+    background: url(./images/makeup/copac.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+section#algorithms-structures .square:first-of-type {
+    width: 30%;
+    bottom: 5%;
+    height: 40%;
+    left: 5%;
+}
+
+section#algorithms-structures .square:last-of-type {
+    top: 5%;
+    left: 15%;
+    width: 35%;
+    height: 40%;
+}
+
+section#algorithms-structures .gallery > div {
+    display: flex;
+    height: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+section#algorithms-structures img {
+    height: 50%;
+}
+
+/* furniture */
+
+section#furniture {
+    background: url("./images/makeup/interior.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+section#furniture .square {
+    top: 20%;
+    height: 60%;
+}
+
+section#furniture .square:last-of-type {
+    width: 30%;
+    right: 2%;
+}
+
+section#furniture .square:last-of-type .transparent {
+    opacity: 0.8;
+}
+
+section#furniture .square:first-of-type {
+    left: 2%;
+    width: 60%;
+    height: 70%;
+    top: 15%;
+}
+
+section#furniture .gallery > div {
+    display: flex;
+    height: 50%;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* figma */
+
+section#figma {
+    background: url(./images/makeup/sound.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+section#figma .square {
+    height: 30%;
+}
+
+section#figma .square:first-of-type {
+    width: 47%;
+    top: 3%;
+    right: 3%;
+}
+
+section#figma .square:last-of-type {
+    width: 47%;
+    bottom: 3%;
+    left:3%;
+}
+
+section#figma .gallery > div {
+    display: flex;
+    height: 100%;
+    flex-wrap: wrap;
+    justify-content: left ;
+}
+
+section#figma img {
+    height: 100%;
+}
+
+/* weather */
+
+section#weather {
+    background: url(./images/makeup/weather.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+section#weather .square {
+    height: 30%;
+}
+
+section#weather .square:first-of-type {
+    width: 27%;
+    top: 5%;
+    left: 15%;
+}
+
+section#weather .square:last-of-type {
+    width: 50%;
+    bottom: 3%;
+    right: 25%;
+    top: 30%;
+    height: 50%;
+}
+
+section#weather .gallery > div {
+    display: flex;
+    height: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+section#weather img {
+    height: 100%;
+}
+
+/* boundary */
+
+section#boundary {
+    background: url(./images/makeup/rucsac.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+section#boundary .square {
+    top: 20%;
+    height: 60%;
+}
+
+section#boundary .square:first-of-type {
+    width: 30%;
+    right: 5%;
+}
+
+section#boundary .square:last-of-type {
+    left: 5%;
+    width: 50%;
+}
+
+section#boundary .gallery > div {
+    display: flex;
+    height: 50%;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* arch */
+
+section#go-arch {
+    background: url(./images/makeup/arch.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+section#go-arch .square {
+    top: 20%;
+    height: 60%;
+}
+
+section#go-arch .square:first-of-type {
+    width: 60%;
+    height: 80%;
+    right: 5%;
+    top: 10%;
+}
+
+section#go-arch .square:last-of-type {
+    left: 5%;
+    width: 25%;
+    height: 25%;
+}
+
+section#go-arch .square:last-of-type .transparent {
+    opacity: 0.8;
+}
+
+section#go-arch .gallery > div {
+    display: flex;
+    height: 50%;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* banner */
+
+section#banner {
+    background: url(./images/makeup/desk.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+section#banner .square {
+    top: 10%;
+    left: 10%;
+    width: 25%;
+    height: 30%;
+}
+

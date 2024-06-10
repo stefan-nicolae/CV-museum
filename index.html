@@ -6,6 +6,7 @@
     <title>Stefan Nicolae Front-End Developer</title>
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="./swiper.css">
+    <link rel="stylesheet" href="./makeup.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 </head>
@@ -26,239 +27,317 @@
             <span>Welcome to my portfolio!</span>
             <br>
         </header>
-
-        <div class="swiper-container">
-            <div class="swiper-wrapper"></div>
-            <div class="swiper-pagination"></div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-        </div>
-        <br>
-        <br>
-        <a id="go-up" href="#"><iconify-icon icon="gridicons:arrow-down"></iconify-icon>
-        </a>
-        <section id="table-of-contents">
-            <h3>Table of contents</h3>
-            <hr>
-            <ul>
-            </ul>
-        </section>
-
-        <section>
-            <h3 id="this"><iconify-icon icon="et:mobile"></iconify-icon> About this website</h3>
-            <hr>
-            <ul>
-                <li>This website: Presentation of all my projects</li>
-                <li>Has mobile version</li>
-                <li>Vanilla JS, JQuery</li>
-                <li>Chat & Chess App Demos</li>
-                <li>Algorithm & Data Structure Demo - d3js for graph</li>
-                <!-- <li><iconify-icon icon="noto-v1:hourglass-not-done"></iconify-icon> = WIP (Work in progress)</li>
-                <li><iconify-icon icon="et:mobile"></iconify-icon> = Works on mobile</li> -->
-                <li><a href="https://github.com/stefan-nicolae/CV-museum" target="_blank">Repository</a></li>
-            </ul>
-        </section>
-
-        <section>
-            <h3 id="chess-app"><iconify-icon icon="et:mobile"></iconify-icon>
-                Chess App - ReactJS, WebSocket</h3>
-            <hr>
-            <ul>
-                <li>ReactJS, WebSocket</li>
-                <li>Game rules implemented: Check, Checkmate, Draw</li>
-                <li>Easy connect by going to /?roomID=youridstring  min 8 characters</li>
-                <li>Mobile drag & drop</li>
-                <li><a href="./frame-demo.html?name=chess" target="_blank">Demo</a></li>
-                <li><a href="https://cv-chess-app.netlify.app/" target="_blank">Client Website</a></li>
-                <li><a href="https://github.com/stefan-nicolae/cv-chess-app" target="_blank">Client Repository</a></li>
-                <li><a href="https://github.com/stefan-nicolae/cv-chess-app-server" target="_blank">Server Repository</a></li>
-            </ul>
-            <br>
-            <div class="gallery">
-                <div class="desktop-images single">
-                    <img src="./images/chess.jpg">
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <h3 id="chat">Chat App - ReactJS & WebSocket </h3>
-            <hr>
-            <ul>
-                <li>ReactJS, WebSocket</li>
-                <li>Alerts for: someone disconnecting, message not sending</li>
-                <li>Drag and drop files (max 8MB)</li>
-                <li>Open sent links in new tab</li>
-                <li>Add someone by both going to <span>/?chatID=yourstring</span> min 8 characters</li>
-                <li><a href="./frame-demo.html?name=chat" target="_blank">Demo</a></li>
-                <li><a href="https://cv-chat-app.netlify.app/" target="_blank">App</a></li>
-                <li><a href="https://github.com/stefan-nicolae/CV-chat-app-new-client" target="_blank">App repository</a></li>
-                <li><a href="https://github.com/stefan-nicolae/CV-chat-app-new-server" target="_blank">WebSocket server repository</a></li>
-            </ul>
-            <br>
-            <div class="gallery">
-                <div class="desktop-images">
-                    <img src="./images/chat/chat 1.jpg">
-                    <img src="./images/chat/chat 2.jpg">
-                    <img src="./images/chat/chat 3.jpg">
-                    <img src="./images/chat/chat 4.jpg">
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <h3 id="olx">OLX Clone - ReactJS, Google Maps</h3>
-            <hr>
-            <ul>
-                <li>ReactJS, Google Maps, dummyjson.com</li>
-                <li>UI based entirely on the original OLX website</li>
-                <li>Main Page, Search Page, Product Page</li>
-                <li>Working search by distance option</li>
-                <li><a href="https://cv-olx-clone.netlify.app/" target="_blank">Website</a></li>
-                <li><a href="https://github.com/stefan-nicolae/cv-olx-clone" target="_blank">Repository</a></li>
-            </ul>
-            <div class="gallery">
-                <div class="desktop-images">
-                    <img src="./images/olx/olx 1.jpg">
-                    <img src="./images/olx/olx 2.jpg">
-                    <img src="./images/olx/olx 3.jpg">
-                    <img src="./images/olx/olx 4.jpg">
-                </div>
-            </div>
-        </section>
-
         
-        <section>
-            <h3 id="algorithms-structures">Most popular algorithms and data structures - JS, d3js</h3>
-            <hr>
-            <ul>
-                <li>Vanilla JS</li>
-                <li>Algorithms: bubblesort, mergesort, quicksort</li>
-                <li>Data structures: binary search tree, double linked list, graph (DFS, BFS), hashtable</li>
-                <li>Demo uses d3js for graph</li>
-                <li><a href="./structs-algos/structs-algos.html" target="_blank" >Demo</a></li>
-                <li><a href="https://github.com/stefan-nicolae/CV-museum/tree/main/structs-algos/data-structures" target="_blank">Data structures repository</a></li>
-                <li><a href="https://github.com/stefan-nicolae/CV-museum/tree/main/structs-algos/algorithms" target="_blank">Algorithms repository</a></li>
-            </ul>
-            <br>
-            <div class="gallery">
-                <div class="desktop-images">
-                    <img src="./images/algos/1.png">
-                    <img src="./images/algos/2.png">
-                    <img src="./images/algos/3.png">
+        <section id="banner">
+
+            <div class="square">
+                <div class="content">
+                    <h3></iconify-icon> About this website</h3>
+                    <ul>
+                        <li>This website: Presentation of all my projects</li>
+                        <li>Vanilla JS, JQuery</li>
+                        <li>Chat & Chess App Demos</li>
+                        <li>Algorithm & Data Structure Demo - d3js for graph</li>
+                        <li><a href="https://github.com/stefan-nicolae/CV-museum" target="_blank">Repository</a></li>
+                    </ul>
                 </div>
+                <div class="transparent"></div>
+            </div>
+            
+            <div class="swiper-container">
+                <div class="swiper-wrapper"></div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
             </div>
         </section>
 
+        <a id="go-up" href="#"><iconify-icon icon="gridicons:arrow-down"></iconify-icon> </a>
 
-        <section>
-            <h3 id="furniture"><iconify-icon icon="et:mobile"></iconify-icon>
-Furniture Store - Responsive Website, Vanilla JS</h3>
-            <hr>
-            <ul>
-                <li>Vanilla JS</li>
-                <li>No libraries, everything coded by me</li>
-                <li>Semantic HTML, image alt tags</li>
-                <li>Animations, Butterfly</li>
-                <li>Responsive sliders, double click to zoom option</li>
-                <li>Main Page, Product Page</li>
-                <li>Mobile version with touch support</li>
-                <li>I used Figma for the design</li>
-                <li><a href="https://stefan-nicolae.github.io/cv-furniture-website/" target="_blank">Website</a></li>
-                <li><a href="https://github.com/stefan-nicolae/cv-furniture-website" target="_blank">Repository</a></li>
-            </ul>
-            <div class="gallery">
-                <div class="desktop-images">
-                    <img src="./images/furniture/furniture 1.jpg">
-                    <img src="./images/furniture/furniture 2.jpg">
+        <section id="table-of-contents">
+            <div class="square">
+                <div class="content">
+                    <h3>Table of contents</h3>
+                    <ul></ul>
                 </div>
-                <div class="mobile-images">
-                    <img src="./images/furniture/mobile furniture 1.jpg">
-                    <img src="./images/furniture/mobile furniture 2.jpg">
-                </div>
+                <div class="transparent"></div>
             </div>
         </section>
 
-
-        <section>
-            <h3 id="figma"><iconify-icon icon="et:mobile"></iconify-icon>
-                Figma Music App Design</h3>
-            <hr>
-            <ul>
-                <li>Figma, Miro</li>
-                <li>As part of the ITSchool UI/UX course, I made a little music app by following all the design thinking steps, from user interview and competitor analysis to wireflow, mockups and prototyping.</li>
-                <li><a href="https://www.behance.net/gallery/198087059/ROOM-UIUX" target="_blank">Presentation (Behance)</a></li>
-            </ul>
-            <br>
-            <div class="gallery">
-                <div class="desktop-images single">
-                    <img src="./images/ROOM.png">
+        <section id="chess-app">
+            <div class="square">
+                <div class="content">
+                    <h3><iconify-icon icon="et:mobile"></iconify-icon>
+                        Chess App - ReactJS, WebSocket</h3>
+                    <ul>
+                        <li>ReactJS, WebSocket</li>
+                        <li>Game rules implemented: Check, Checkmate, Draw</li>
+                        <li>Easy connect by going to /?roomID=youridstring  min 8 characters</li>
+                        <li>Mobile drag & drop</li>
+                        <li><a href="./frame-demo.html?name=chess" target="_blank">Demo</a></li>
+                        <li><a href="https://cv-chess-app.netlify.app/" target="_blank">Client Website</a></li>
+                        <li><a href="https://github.com/stefan-nicolae/cv-chess-app" target="_blank">Client Repository</a></li>
+                        <li><a href="https://github.com/stefan-nicolae/cv-chess-app-server" target="_blank">Server Repository</a></li>
+                    </ul>
                 </div>
+                <div class="transparent"></div>
+            </div>
+
+            <div class="square">
+                <div class="content">
+                    <div class="gallery">
+                        <div class="desktop-images single">
+                            <img src="./images/chess.jpg">
+                        </div>
+                    </div>
+                </div>
+                <div class="transparent"></div>
             </div>
         </section>
 
-        <section>
-            <h3 id="weather">Weather App - Simple ReactJS App</h3>
-            <hr>
-            <ul>
-                <li>ReactJS, Google Maps, weatherapi.com</li>
-                <li>Cute round design</li>
-                <li><a href="https://cv-weather-app.netlify.app/" target="_blank">App</a></li>
-                <li><a href="https://github.com/stefan-nicolae/CV-weather-app" target="_blank">Repository</a></li>
-            </ul>
-            <br>
-            Needs location permission to work
-            <div class="gallery">
-                <div class="desktop-images single">
-                    <img src="./images/weather 1.jpg">
+        <section id="chat">
+            <div class="square">
+                <div class="content">
+                    <h3>Chat App - ReactJS & WebSocket</h3>
+                    <ul>
+                        <li>ReactJS, WebSocket</li>
+                        <li>Alerts for: someone disconnecting, message not sending</li>
+                        <li>Drag and drop files (max 8MB)</li>
+                        <li>Open sent links in new tab</li>
+                        <li>Add someone by both going to <span>/?chatID=yourstring</span> min 8 characters</li>
+                        <li><a href="./frame-demo.html?name=chat" target="_blank">Demo</a></li>
+                        <li><a href="https://cv-chat-app.netlify.app/" target="_blank">App</a></li>
+                        <li><a href="https://github.com/stefan-nicolae/CV-chat-app-new-client" target="_blank">App repository</a></li>
+                        <li><a href="https://github.com/stefan-nicolae/CV-chat-app-new-server" target="_blank">WebSocket server repository</a></li>
+                    </ul>
                 </div>
+                <div class="transparent"></div>
+            </div>
+
+            <div class="square">
+                <div class="content">
+                    <div class="gallery">
+                        <div class="desktop-images">
+                            <img src="./images/chat/chat 1.jpg">
+                            <img src="./images/chat/chat 2.jpg">
+                            <img src="./images/chat/chat 3.jpg">
+                            <img src="./images/chat/chat 4.jpg">
+                        </div>
+                    </div>
+                </div>
+                <div class="transparent"></div>
             </div>
         </section>
 
-
-        <section>
-            <h3 id="boundary"><iconify-icon icon="et:mobile"></iconify-icon>
- Boundary - Responsive Website</h3>
-            <hr>
-            <ul>
-                <li>Vanilla JS</li>
-                <li>Mobile and Desktop Versions</li>
-                <li><a href="https://stefan-nicolae.github.io/cv-layout-boundary/" target="_blank">Website</a></li>
-                <li><a href="https://github.com/stefan-nicolae/cv-layout-boundary" target="_blank">Repository</a></li>
-            </ul>
-            <div class="gallery">
-                <div class="desktop-images">
-                    <img src="./images/boundary/boundary 1.jpg">
-                    <img src="./images/boundary/boundary 2.jpg">
+        <section id="olx">
+            <div class="square">
+                <div class="content">
+                    <h3>OLX Clone - ReactJS, Google Maps</h3>
+                    <ul>       
+                        <li>ReactJS, Google Maps, dummyjson.com</li>
+                        <li>UI based entirely on the original OLX website</li>
+                        <li>Main Page, Search Page, Product Page</li>
+                        <li>Working search by distance option</li>
+                        <li><a href="https://cv-olx-clone.netlify.app/" target="_blank">Website</a></li>
+                        <li><a href="https://github.com/stefan-nicolae/cv-olx-clone" target="_blank">Repository</a></li>
+                    </ul>
                 </div>
-                <div class="mobile-images">
-                    <img src="./images/boundary/mobile boundary 1.jpg">
-                    <img src="./images/boundary/mobile boundary 2.jpg">
+                <div class="transparent"></div>
+            </div>
+            <div class="square">
+                <div class="content">
+                    <div class="gallery">
+                        <div class="desktop-images">
+                            <img src="./images/olx/olx 1.jpg">
+                            <img src="./images/olx/olx 2.jpg">
+                            <img src="./images/olx/olx 3.jpg">
+                            <img src="./images/olx/olx 4.jpg">
+                        </div>
+                    </div>
                 </div>
+                <div class="transparent"></div>
             </div>
         </section>
 
-        <section>
-            <h3 id="go-arch"><iconify-icon icon="et:mobile"></iconify-icon>
-go.arch - Responsive Website</h3>
-            <hr>
-            <ul>
-                <li>Vanilla JS</li>
-                <li>Modern Design</li>
-                <li>Mobile and Desktop Versions</li>
-                <li><a href="https://stefan-nicolae.github.io/cv-layout-go-arch/" target="_blank">Website</a></li>
-                <li><a href="https://github.com/stefan-nicolae/cv-layout-go-arch" target="_blank">Repository</a></li>
-            </ul>
-            <div class="gallery">
-                <div class="desktop-images">
-                    <img src="./images/goarch/arch 1.jpg">
-                    <img src="./images/goarch/arch 2.jpg">
+        <section id="algorithms-structures">
+            <div class="square">
+                <div class="content">
+                    <h3>Most popular algorithms and data structures - JS, d3js</h3>
+                    <ul>
+                        <li>Vanilla JS</li>
+                        <li>Algorithms: bubblesort, mergesort, quicksort</li>
+                        <li>Data structures: binary search tree, double linked list, graph (DFS, BFS), hashtable</li>
+                        <li>Demo uses d3js for graph</li>
+                        <li><a href="./structs-algos/structs-algos.html" target="_blank" >Demo</a></li>
+                        <li><a href="https://github.com/stefan-nicolae/CV-museum/tree/main/structs-algos/data-structures" target="_blank">Data structures repository</a></li>
+                        <li><a href="https://github.com/stefan-nicolae/CV-museum/tree/main/structs-algos/algorithms" target="_blank">Algorithms repository</a></li>
+                    </ul>
                 </div>
-                <div class="mobile-images">
-                    <img src="./images/goarch/mobile arch 1.jpg">             
-                    <img src="./images/goarch/mobile arch 2.jpg">   
-                    <img src="./images/goarch/mobile arch 3.jpg">
+                <div class="transparent"></div>
+            </div>
+            <div class="square">
+                <div class="content">
+                    <div class="gallery">
+                        <div class="desktop-images">
+                            <img src="./images/algos/1.png">
+                            <img src="./images/algos/2.png">
+                            <img src="./images/algos/3.png">
+                        </div>
+                    </div>
                 </div>
+                <div class="transparent"></div>
+            </div>
+        </section>
+
+        <section id="furniture">
+            <div class="square">
+                <div class="content">
+                    <div class="gallery">
+                        <div class="desktop-images">
+                            <img src="./images/furniture/furniture 1.jpg">
+                            <img src="./images/furniture/furniture 2.jpg">
+                        </div>
+                        <div class="mobile-images">
+                            <img src="./images/furniture/mobile furniture 1.jpg">
+                            <img src="./images/furniture/mobile furniture 2.jpg">
+                        </div>
+                    </div>
+                </div>
+                <div class="transparent"></div>
+            </div>
+            <div class="square">
+                <div class="content">
+                    <h3><iconify-icon icon="et:mobile"></iconify-icon>
+                        Furniture Store - Responsive Website, Vanilla JS</h3>
+                        <ul>
+                            <li>Vanilla JS</li>
+                            <li>No libraries, everything coded by me</li>
+                            <li>Semantic HTML, image alt tags</li>
+                            <li>Animations, Butterfly</li>
+                            <li>Responsive sliders, double click to zoom option</li>
+                            <li>Main Page, Product Page</li>
+                            <li>Mobile version with touch support</li>
+                            <li>I used Figma for the design</li>
+                            <li><a href="https://stefan-nicolae.github.io/cv-furniture-website/" target="_blank">Website</a></li>
+                            <li><a href="https://github.com/stefan-nicolae/cv-furniture-website" target="_blank">Repository</a></li>
+                        </ul>
+                </div>
+                <div class="transparent"></div>
+            </div>
+        </section>
+
+        <section id="figma">
+            <div class="square">
+                <div class="content">
+                    <h3><iconify-icon icon="et:mobile"></iconify-icon>
+                        Figma Music App Design</h3>
+                        <ul>
+                            <li>Figma, Miro</li>
+                            <li>As part of the ITSchool UI/UX course, I made a little music app by following all the design thinking steps, from user interview and competitor analysis to wireflow, mockups and prototyping.</li>
+                            <li><a href="https://www.behance.net/gallery/198087059/ROOM-UIUX" target="_blank">Presentation (Behance)</a></li>
+                        </ul>
+                </div>
+                <div class="transparent"></div>
+            </div>
+            <div class="square">
+                <div class="content">
+                    <div class="gallery">
+                        <div class="desktop-images single">
+                            <img src="./images/ROOM.png">
+                        </div>
+                    </div>
+                </div>
+                <div class="transparent"></div>
+            </div>
+        </section>
+
+        <section id="weather">
+            <div class="square">
+                <div class="content">
+                    <h3>Weather App - Simple ReactJS App</h3>
+                    <ul>
+                        <li>ReactJS, Google Maps, weatherapi.com</li>
+                        <li>Cute round design</li>
+                        <li><a href="https://cv-weather-app.netlify.app/" target="_blank">App</a></li>
+                        <li><a href="https://github.com/stefan-nicolae/CV-weather-app" target="_blank">Repository</a></li>
+                    </ul>
+                    Needs location permission to work
+                </div>
+                <div class="transparent"></div>
+            </div>
+            <div class="square">
+                <div class="content">
+                    <div class="gallery">
+                        <div class="desktop-images single">
+                            <img src="./images/weather 1.jpg">
+                        </div>
+                    </div>
+                </div>
+                <div class="transparent"></div>
+            </div>
+        </section>
+
+        <section id="boundary">
+            <div class="square">
+                <div class="content">
+                    <h3><iconify-icon icon="et:mobile"></iconify-icon>
+                        Boundary - Responsive Website</h3>
+                        <ul>
+                            <li>Vanilla JS</li>
+                            <li>Mobile and Desktop Versions</li>
+                            <li><a href="https://stefan-nicolae.github.io/cv-layout-boundary/" target="_blank">Website</a></li>
+                            <li><a href="https://github.com/stefan-nicolae/cv-layout-boundary" target="_blank">Repository</a></li>
+                        </ul>
+                </div>
+                <div class="transparent"></div>
+            </div>
+            <div class="square">
+                <div class="content">
+                    <div class="gallery">
+                        <div class="desktop-images">
+                            <img src="./images/boundary/boundary 1.jpg">
+                            <img src="./images/boundary/boundary 2.jpg">
+                        </div>
+                        <div class="mobile-images">
+                            <img src="./images/boundary/mobile boundary 1.jpg">
+                            <img src="./images/boundary/mobile boundary 2.jpg">
+                        </div>
+                    </div>
+                </div>
+                <div class="transparent"></div>
+            </div>
+        </section>
+
+        <section id="go-arch">
+            <div class="square">
+                <div class="content">
+                    <div class="gallery">
+                        <div class="desktop-images">
+                            <img src="./images/goarch/arch 1.jpg">
+                            <img src="./images/goarch/arch 2.jpg">
+                        </div>
+                        <div class="mobile-images">
+                            <img src="./images/goarch/mobile arch 1.jpg">             
+                            <img src="./images/goarch/mobile arch 2.jpg">   
+                            <img src="./images/goarch/mobile arch 3.jpg">
+                        </div>
+                    </div>
+                </div>
+                <div class="transparent"></div>
+            </div>
+            <div class="square">
+                <div class="content">
+                    <h3><iconify-icon icon="et:mobile"></iconify-icon>
+                        go.arch - Responsive Website</h3>
+                    <ul>
+                        <li>Vanilla JS</li>
+                        <li>Modern Design</li>
+                        <li>Mobile and Desktop Versions</li>
+                        <li><a href="https://stefan-nicolae.github.io/cv-layout-go-arch/" target="_blank">Website</a></li>
+                        <li><a href="https://github.com/stefan-nicolae/cv-layout-go-arch" target="_blank">Repository</a></li>
+                    </ul>
+                </div>
+                <div class="transparent"></div>
             </div>
         </section>
     </div>
