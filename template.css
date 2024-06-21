@@ -3,6 +3,7 @@
     --textColor: rgb(75, 75, 75);
     --highlightColor: rgb(136, 136, 255);
     --darkGray: rgb(175, 175, 175);
+    --gray: rgb(224, 224, 224);
 }
 
 @font-face {
