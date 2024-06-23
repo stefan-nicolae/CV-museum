@@ -12,26 +12,25 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            overflow-y: hidden;
         }
-
+        
         body {
+            /* overflow: hidden; */
             background-color: var(--backgroundColor);
         }
 
         .container {
             width: 100%;
-            height: 100vh;
-            padding: 10px;
+            min-height: 100vh;
             display: flex;
             color: var(--textColor);
             font-family: helvetica;
         }
- 
+        
         section {
             flex: 1;
             padding: 20px;
-            height: 100vh;
+            max-width: 100vw;
         }
         
         iframe {
@@ -39,37 +38,62 @@
             border: 1px solid var(--darkGray);
             background-color: white;
             border-radius: 8px;
+            transform: scale(0.8);
+            height: calc(90% / 0.8);
+            width: calc(100% / 0.8);
+            transform-origin: 0 0; 
         }
-
+        
         button {
-            margin-left: 20px;
-            padding: 10px 20px;
             font-family: helvetica;
             background-color: var(--gray);
             border: none;
             border-radius: 8px;
             cursor: pointer;
             color: var(--textColor);
+            margin-left: 20px;
+            padding: 5px 15px;
         }
-
+        
         button:hover {
             cursor: pointer;
             background-color: var(--darkGray);
         }
-
-        section > div{
-            margin-bottom: 10px;
+        
+        section > div {
             display: flex;
             align-items: center;
+            height: 10%;
+        }
+
+        section {
+            padding-top: 0;
+        }
+
+        @media (max-width: 1300px) {
+            body {
+                overflow: scroll;
+            }
+            .container {
+                flex-direction: column;
+            }
+
+            section {
+                min-height: 100vh;
+            }
+
+            section > div {
+                min-height: 50px;
+            }
+
+            iframe {
+                width: 1000px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- <h1 id="instructions"></h1> -->
-
-    
-        <!-- <section class="chats"></section> -->
          <section id="section1">
             <div>
                 <h1>What you see</h1>
@@ -85,7 +109,6 @@
     </div>
 </body>
 <script>
-        // const instructions = document.querySelector("#instructions")
         const queryString = window.location.search;
 
         const params = new URLSearchParams(queryString);
@@ -133,19 +156,13 @@
             return ifrm
         }
 
-        // const chats = document.querySelector(".chats")
         const section1 = document.querySelector("#section1")
         const section2 = document.querySelector("#section2")
         section1.appendChild(prepareChatFrame("chat-1", ID))
         section2.appendChild(prepareChatFrame("chat-2", ID))
 
         function connect() {
-            let parentElement = document.getElementById('section1');
-            let iframes = parentElement.querySelectorAll('iframe');
-            iframes.forEach(iframe => iframe.remove());
-
-                parentElement = document.getElementById('section2');
-                iframes = parentElement.querySelectorAll('iframe');
+            let iframes = document.querySelectorAll('iframe');
             iframes.forEach(iframe => iframe.remove());
 
             section1.appendChild(prepareChatFrame("chat-1", ID, 1))
