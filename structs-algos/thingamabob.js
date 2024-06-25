@@ -9,10 +9,17 @@ import { networkGraph } from "./thingamajig.js";
 import HashTable from "./data-structures/hashtable.js";
 
 const rootStyles = getComputedStyle(document.documentElement);
-const backgroundColor = rootStyles.getPropertyValue('--backgroundColor');
-const darkGray = rootStyles.getPropertyValue('--darkGray');
 const highlightColor = rootStyles.getPropertyValue('--highlightColor');
-const textColor = rootStyles.getPropertyValue('--textColor');
+
+function check (event, requiredLength = -1) {
+    event.target.value = event.target.value.replace(/\s{2,}/g, ' ').replace(/^\s+/, '');
+    const arr = event.target.value.split(" ").filter(item => item !== "")
+    console.log(arr)
+    if(requiredLength !== -1 && arr.length >= requiredLength) {
+        arr.length = requiredLength
+        event.target.value = arr.join(" ").trimEnd()
+    }
+}
 
 function isNonEmptyString(value) {
     return typeof value === 'string' && value.trim().length > 0;
@@ -133,6 +140,7 @@ $(document).ready(function() {
     }
 
     function validateInput(inputValue, requiredLength=-1) {
+        inputValue = inputValue.trimEnd()
         if (!inputValue) {
             displayFunc();
             return null;
@@ -156,7 +164,8 @@ $(document).ready(function() {
     function addInput(output, title, placheolder, func, requiredLength = 1) {
         const input = $('<input>').attr('type', 'text').attr('placeholder', placheolder);
     
-        input.on('input', function() {
+        input.on('input', function(event) {
+            check(event, requiredLength)
             enterFunc = () => {};
             if (output === firstOutput) cleanupFirstOutput();
     
@@ -212,10 +221,12 @@ $(document).ready(function() {
     function runStructs() {
         currentOutput = firstOutput
         firstInput.prop("disabled", false);
+        $("#main-input").removeClass("hidden")
+
         const [id, arr] = setupRun(selectedFirst, firstInput, firstOutput)
         if(id === null) return
         globalID = id
-
+        
         cleanupFirstOutput()
         
         if(selectedFirst !== "graph" && selectedFirst !== "hashtable") addButton(firstOutput, "Display", () => {
@@ -253,13 +264,13 @@ $(document).ready(function() {
                     })
                 })
 
-                addInput(firstOutput, "find(value)", "4", (inputVal) => {
+                addInput(firstOutput, "find: number", "4", (inputVal) => {
                     log("Node Found:", id)
                     log(stringifyCircular(tree.find(inputVal)), id)
                     write(firstOutput, id)
                 })
 
-                addInput(firstOutput, "remove(value)", "4", (inputVal) => {
+                addInput(firstOutput, "remove: number", "4", (inputVal) => {
                     log("Value Removed:", id)
                     log("Before: ", id)
                     tree.display(msg => log(msg.replaceAll(" ", "-"), id))
@@ -284,20 +295,20 @@ $(document).ready(function() {
                     write(firstOutput, id, true)
                 }
                 
-              addInput(firstOutput, "find(value)", "4", inputVal => {
+              addInput(firstOutput, "find: number", "4", inputVal => {
                     log("Node Found:", id)
                     log(stringifyCircular(DLL.find(inputVal)), id)
                     write(firstOutput, id)
                 })
 
-                addInput(firstOutput, "remove(value)","4", inputVal => {
+                addInput(firstOutput, "remove: number","4", inputVal => {
                     log("Node Removed:", id)
                     write(firstOutput, id)
                     DLL.remove(DLL.find(inputVal))
                     displayFunc()
                 })
 
-                const insertInput = addInput(firstOutput, "insert(value, index [-1 to len - 1])", "3 0", inputArr => {
+                const insertInput = addInput(firstOutput, "insert: number, index (-1 to listlength - 1)", "3 0", inputArr => {
                     const targetNode = inputArr[1] === -1 ? -1 : DLL.getNodeByIndex(inputArr[1])
                     DLL.insert(inputArr[0], targetNode)
                     log(DLL.toArray(), id)
@@ -305,7 +316,7 @@ $(document).ready(function() {
                     insertInput.val("")
                 }, 2)
 
-                addInput(firstOutput, "getNodeByIndex(index [0 to len - 1])", "3", inputVal => {
+                addInput(firstOutput, "getNodeByIndex: index (-1 to listlength - 1)", "3", inputVal => {
                     log(stringifyCircular(DLL.getNodeByIndex(inputVal)), id)
                     write(firstOutput, id)
                 })
@@ -324,7 +335,10 @@ $(document).ready(function() {
                     )
                 }
 
+                
                 firstInput.prop("disabled", true);
+                $("#main-input").addClass("hidden")
+
 
                 addButton(firstOutput, "Reload", () => {
                     graph = new Graph()
@@ -340,7 +354,7 @@ $(document).ready(function() {
                     reloadDemo.click()
                 },200)
 
-                addInput(firstOutput, 'addNodePair(v1, v2, twoWay ["T" or "F"])', "3 4 F", inputArr => {
+                addInput(firstOutput, 'addNodePair: node1, node2, twoWay (T or F)', "3 4 F", inputArr => {
                     const one = inputArr[0]
                     const two = inputArr[1]
                     const twoWay = inputArr[2]
@@ -356,17 +370,17 @@ $(document).ready(function() {
                     write(firstOutput, id)
                 }
 
-                addInput(firstOutput, 'breadthFirstSearch(value)', "3", inputVal => {
+                addInput(firstOutput, 'breadthFirstSearch: node', "3", inputVal => {
                     graphSearch(inputVal)
             
                 })
 
-                addInput(firstOutput, 'depthFirstSearch(value)', "3", inputVal => {
+                addInput(firstOutput, 'depthFirstSearch: node', "3", inputVal => {
                     graphSearch(inputVal, 0)
 
                 })
                 
-                addInput(firstOutput, 'check(v1, v2, twoWay ["T" or "F"])', "3 4 F", inputArr => {
+                addInput(firstOutput, 'check: node1, node2, twoWay (T or F)', "3 4 F", inputArr => {
                     const one = inputArr[0]
                     const two = inputArr[1]
                     let result = false
@@ -384,7 +398,7 @@ $(document).ready(function() {
                     displayFunc()
                 }, 3)   
  
-                addInput(firstOutput, 'remove(value)', "3", value => {
+                addInput(firstOutput, 'remove: node', "3", value => {
                     graph.remove(graph.findNodeByValue(value))
                     displayFunc()
                 })
@@ -399,6 +413,7 @@ $(document).ready(function() {
                 break
             case "hashtable":
                 firstInput.prop("disabled", true);
+                $("#main-input").addClass("hidden")
                 hashtable = new HashTable()
 
                 addButton(firstOutput, "Reset", () => {
@@ -511,6 +526,13 @@ $(document).ready(function() {
         }
     }
 
-    firstInput.on("input", ()=>runStructs())
-    lastInput.on("input", ()=>runAlgos())
+    firstInput.on('input', event => {
+        check(event)
+        runStructs()
+    })
+    
+    lastInput.on('input', event => {
+        check(event)
+        runAlgos()
+    })
 });

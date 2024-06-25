@@ -17,9 +17,9 @@
         
         .container {
             font-family: Helvetica;
-            background-color: var(--backgroundColor);
             padding: 64px;
             user-select: none;
+            background: linear-gradient(90deg,  var(--backgroundColor) 50%, var(--blue) 100%); 
         }
 
 
@@ -41,13 +41,17 @@
         }
 
         input {
-            padding: 4px;
+            padding: 4px 8px;
             background-color: var(--darkGray);
-            color: var(--textColor);
+            color: var(--instructions) !important;
             border: none;
             outline: none;
-            margin-right: 8px;
-            width: 240px;
+            border: 1px solid var(--blue);
+        }
+
+        menu input {
+            width: fit-content !important;
+            font-size: 125% !important;
         }
 
         input, button {
@@ -55,8 +59,14 @@
             font-family: Helvetica;
         }
 
-        button:hover, input:hover {
-            opacity: 0.7;
+        button:hover, input:not(:disabled):hover {
+            background-color: rgb(184, 184, 184);
+        }
+        
+        input:disabled {
+            cursor: not-allowed;
+            user-select: none;
+            pointer-events: none;
         }
         
         button.highlight {
@@ -88,7 +98,10 @@
 
 
         h3 {
-            color: var(--darkGray);
+            color: var(--instructions);
+            font-family: monospace;
+            font-weight: normal;
+            margin-bottom: 4px;
         }
 
 
@@ -102,7 +115,6 @@
             border-top-right-radius: 8px; 
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
-
         }
  
 
@@ -112,10 +124,27 @@
 
 
         section {
-            height: 480px;
+            height: 640px;
             display: flex;
             flex-direction: column;
             position: relative;
+            padding: 10px;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0);
+        }
+
+        section .transparent {
+            z-index: 1;
+            border-top-left-radius: 0px; 
+            border-top-right-radius: 0px; 
+            border-bottom-right-radius: 8px; 
+            background-color: rgba(0, 0, 0, 0.079);
+            border-bottom-left-radius: 8px; 
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
         }
 
         section:first-of-type {
@@ -123,19 +152,21 @@
         }
         
         section menu {
+            z-index: 3;
             border: 1px solid var(--darkGray);
-            border-top-left-radius: 0px; 
+            border-top-left-radius: 8px; 
             border-top-right-radius: 8px; 
             border-bottom-right-radius: 8px; 
             border-bottom-left-radius: 8px; 
-            padding: 8px;
+            padding: 16px 16px;
         }
 
         section menu input {
             padding: 4px 8px;
-            background-color: var(--backgroundColor);
+            background-color: rgba(255, 255, 255, 0);
             width: 100%;
             color: var(--textColor);
+            font-size: 150%;
         }
 
         section menu input:disabled {
@@ -143,7 +174,9 @@
         }
 
         section .screen {
-            padding: 8px 16px;
+            z-index: 3;
+
+            padding: 16px 16px;
             flex: 1;
             color: var(--textColor);
             width: 100%;
@@ -156,67 +189,90 @@
         }
 
         .screen button {
-            margin-right: 8px;
             color: var(--textColor);
         }
         
-        .screen input::placeholder {
+       input::placeholder {
             color: var(--textColor);
+            font-family: monospace;
+            font-size: 80%;
+        }
+
+        .screen input {
+            color: var(--instructions)
         }
 
         .screen .colored-dash {
             display: inline;
-            color: var(--backgroundColor);
+            color: rgba(0, 0, 0, 0);
         }
 
         div.controls {
             display: flex;
-            align-items: flex-end;
+            align-items: flex-start;
             flex-wrap: wrap;
             padding-bottom: 8px;
             margin-bottom: 8px;
             border-bottom: 1px solid var(--darkGray);
         }
 
-        div.controls h3 {
-            font-size: 75%;
-            color: var(--textColor);
-
-        }
-
         div.controls button {
             color: var(--textColor);
             font-family: monospace;
+            margin-top: 32px;
         }
 
-        div.controls button, input {
+        div.controls button, .input {
             margin-bottom: 8px;
+            margin-right: 16px;
+        }
+
+        .input {
+            margin-bottom: 32px;
+        }
+
+        input {
+            width: 100%;
         }
         
         .arrow {
             font-size: 48px;
             position: absolute;
             bottom: 0;
-            right: 16px;
+            right: 24px;
             color: var(--textColor);
             cursor: pointer;
+            z-index: 100;
         }
 
         .arrow:hover {
             color: var(--darkGray);
         }
 
+        .input h3 {
+            font-size: 90%;
+            margin: 0px 10px;
+            height: 32px;
+        }
+
+        h3.hidden {
+            opacity: 0.3;
+        }
+
+        ul {
+            margin-bottom: 20px;
+        }
     </style>
     <script src="https://d3js.org/d3.v5.min.js"></script>
 
 </head>
 <body>
     <div class="container">
-            <h1>Data Structures</h1>
+            <h1>Data Structures Visualisation</h1>
             <ul>
                 <li>Press Enter to submit data</li>
                 <li>All inputs have suggestions</li>
-                <li>BST: The display looks the best with digits</li>
+                <li>Binary search tree display looks the best with digits</li>
                 <li>Copy the example numbers: <span class="copy">4 1 5 3 9 2 8 6 1 5</span></li>
             </ul>
             <nav>
@@ -228,14 +284,14 @@
 
             <section>
                 <menu>
-                    <h3>INPUT</h1>
-                    <input class="first-input" type="text" value="4 1 5 3 9 2 8 6 1 5" placeholder="Example: 4 1 5 3 9 2 8 6 1 5">
+                    <h3 id="main-input">Main input: insert spaced numbers</h1>
+                    <input class="first-input" type="text" value="4 1 5 3 9 2 8 6 1 5" placeholder="example: 4 1 5 3 9 2 8 6 1 5">
                 </menu>
                 <div class="screen screen-first"> </div>
                 <span class="arrow arrow-1"><iconify-icon icon="gridicons:arrow-up"></iconify-icon></span>
             </section>
             <br>
-            <h1>Algorithms</h1>
+            <h1>Algorithms Visualisation</h1>
             <ul>
                 <li>Copy the example numbers: <span class="copy">42 17 56 33 91 24 8 69 12 5</span></li>
             </ul>
@@ -247,7 +303,7 @@
 
             <section>
                 <menu>
-                    <h3>INPUT</h1>
+                    <h3>Main input: insert spaced numbers</h1>
                     <input class="last-input" type="text" value="42 17 56 33 91 24 8 69 12 5" placeholder="Example: 42 17 56 33 91 24 8 69 12 5">
                 </menu>
                 <div class="screen screen-last"></div>
@@ -280,6 +336,13 @@
         $(".arrow-2").click(() => {
             scrollToTop("screen-last")
         })
+
+        $('section').each(function() {
+            var transparentDiv = $('<div class="transparent"></div>');
+
+
+            $(this).append(transparentDiv);
+        });
     </script>
 </body>
 </html>

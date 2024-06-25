@@ -4,6 +4,8 @@
     --highlightColor: rgb(136, 136, 255);
     --darkGray: rgb(175, 175, 175);
     --gray: rgb(224, 224, 224);
+    --blue: rgba(0, 60, 255, 0.171);   
+    --instructions: rgb(0, 30, 164);
 }
 
 @font-face {
