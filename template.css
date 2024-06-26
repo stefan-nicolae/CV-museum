@@ -9,13 +9,13 @@
 }
 
 @font-face {
-    font-family: helvetica;
-    src: url(./fonts/Helvetica.ttf);
+    font-family: Helvetica;
+    src: url(./fonts/HelveticaNeueLight.otf);
 }
 
 @font-face {
-    font-family: helvetica-bold;
-    src: url(./fonts/Helvetica-Bold.ttf);
+    font-family: 'Helvetica-Bold';
+    src: url(./fonts/HelveticaNeueMedium.otf);
 }
 
 ::selection {
