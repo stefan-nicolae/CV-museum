@@ -20,4 +20,5 @@
 
 ::selection {
     background-color: var(--highlightColor); 
+    color: white;
 }
