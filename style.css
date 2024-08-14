@@ -140,7 +140,10 @@ section .transparent {
     bottom: 1vw;
     right: 1vw;
     font-size: 5vw;
-    height: 100px;
-    width: 100px;
+    height: 6vw;
+    width: 6vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
