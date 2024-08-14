@@ -17,7 +17,7 @@ $(document).ready(function(){
     });
 
     galleryArray.shift()
-    galleryArray.shift()
+    // galleryArray.shift()
 
     var swiper = new Swiper('.swiper-container', {
         slidesPerView: 1,

@@ -11,8 +11,8 @@
     height: 100%;
     font-family: Helvetica;
     color: var(--textColor);
-    font-size: 1vw;
-    line-height: 1.5vw;
+    font-size: 1.1vw;
+    line-height: 1.4;
 }
 
 h1 {
@@ -54,7 +54,6 @@ section {
     overflow: hidden;
     margin: 2vw;
     border-radius: 0.5vw;
-    opacity: 0.8;
 }
 
 section:first-of-type {
@@ -136,10 +135,12 @@ section .transparent {
     font-family: Helvetica-Bold;
     transform: rotate(180deg);
     color: var(--backgroundColor);
-    background-color: orange;
+    background-color: rgba(68, 158, 123, 0.425);
     border-radius: 1000px;
     bottom: 1vw;
     right: 1vw;
     font-size: 5vw;
+    height: 100px;
+    width: 100px;
 }
 
