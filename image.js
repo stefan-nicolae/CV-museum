@@ -26,12 +26,12 @@ function handleResize () {
     const windowHeight = window.innerHeight
     const windowWidth = window.innerWidth
     if(windowWidth/windowHeight > imageWidth/imageHeight) {
-        fullscreenImage.style.height = "100vh"
+        fullscreenImage.style.height = "90vh"
         fullscreenImage.style.width = "unset"
     } 
     else {
         fullscreenImage.style.height = "unset"
-        fullscreenImage.style.width = "100%"
+        fullscreenImage.style.width = "90%"
     }
 }
 
