@@ -83,6 +83,7 @@ section#chat .square:first-of-type {
 section#chat .square:last-of-type {
     right: 5%;
     width: 50%;
+    height: 45%;
 }
 
 section#chat .gallery > div {
@@ -93,7 +94,9 @@ section#chat .gallery > div {
 }
 
 section#chat img {
-    height: 50%;
+    width: 50%;
+    height: fit-content;
+
 }
 
 /* olx */
@@ -196,12 +199,33 @@ section#furniture .square:first-of-type {
     top: 15%;
 }
 
-section#furniture .gallery > div {
+section#furniture .gallery {
     display: flex;
-    height: 50%;
-    flex-wrap: wrap;
-    justify-content: center;
+    height: 100%;
 }
+
+section#furniture .desktop-images {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+section#furniture .desktop-images img {
+    width: 50%;
+    height: unset;
+}
+
+section#furniture .mobile-images {
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+}
+
+section#furniture .mobile-images img {
+    width: 48%;
+}
+
 
 /* figma */
 
