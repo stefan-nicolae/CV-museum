@@ -20,7 +20,7 @@ $(document).ready(function(){
 
     var swiper = new Swiper('.swiper-container', {
         slidesPerView: 1,
-        spaceBetween: "4px",
+        spaceBetween: "2vw",
         pagination: {
             el: '.swiper-pagination',
             clickable: true,

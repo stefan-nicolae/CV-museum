@@ -59,9 +59,12 @@
             font-family: Helvetica;
         }
 
-        button:hover, input:not(:disabled):hover {
-            background-color: rgb(184, 184, 184);
+        @media (hover: hover) {
+            button:hover, input:not(:disabled):hover {
+                background-color: rgb(184, 184, 184);
+            }
         }
+     
         
         input:disabled {
             cursor: not-allowed;
@@ -248,8 +251,12 @@
             z-index: 100;
         }
 
-        .arrow:hover {
-            color: var(--darkGray);
+  
+
+        @media (hover: hover) {
+            .arrow:hover {
+                color: var(--darkGray);
+            }
         }
 
         .input h3 {
