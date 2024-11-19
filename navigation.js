@@ -17,6 +17,7 @@ $(document).ready(function(){
     });
 
     galleryArray.shift()
+    galleryArray.shift()
 
     var swiper = new Swiper('.swiper-container', {
         slidesPerView: 1,
@@ -33,13 +34,12 @@ $(document).ready(function(){
             delay: 3000, 
             disableOnInteraction: false, 
         },
+        loop: true
     });
 
     galleryArray.forEach(function(item) {
         $("#table-of-contents").find("ul").append(`<li><a href="#${item.galleryId}">${item.h3.html()}</a></li>`)
     })
-
-    galleryArray.shift()
 
     function populateSwiper() {
         galleryArray.forEach(function(item) {

@@ -354,7 +354,7 @@
     section#go-arch .square:last-of-type {
         left: 5%;
         width: 25%;
-        height: 25%;
+        height:35%;
     }
 
     section#go-arch .square:last-of-type .transparent {
@@ -376,8 +376,11 @@
         top: 10%;
         left: 10%;
         width: 25%;
-        height: 30%;
+        height: 40%;
+        
     }
-
+    section#banner .square .transparent {
+        opacity: .8;
+    }
   
 }
