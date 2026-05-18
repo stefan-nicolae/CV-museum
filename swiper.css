@@ -9,6 +9,9 @@
 .swiper-wrapper {
     display: flex;
     height: 100%;
+    width: 100%;
+    transition-property: transform;
+    box-sizing: content-box;
 }
 
 .swiper-slide h3 {
@@ -18,7 +21,9 @@
 .swiper-slide {
     border: 0.1vw solid var(--highlightColor);
     user-select: none;
-    min-width: calc(100%);
+    width: 100%;
+    flex-shrink: 0;
+    box-sizing: border-box;
     height: 100%;
     display: flex;
     align-items: center;
@@ -60,6 +65,9 @@
     z-index: 3; 
 }
 
+.swiper-navigation-icon {
+    display: none;
+}
 
 @media (hover: hover) {
     .swiper-slide:hover {

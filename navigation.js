@@ -19,9 +19,12 @@ $(document).ready(function(){
     galleryArray.shift()
     galleryArray.shift()
 
+    populateSwiper();
+
+
     var swiper = new Swiper('.swiper-container', {
         slidesPerView: 1,
-        spaceBetween: "2vw",
+        spaceBetween: 20,
         pagination: {
             el: '.swiper-pagination',
             clickable: true,
@@ -55,12 +58,9 @@ $(document).ready(function(){
         });
     }
 
-    populateSwiper();
-
     const iconElement = $('<iconify-icon>')
     .attr('icon', 'gridicons:arrow-down') 
     .addClass('link-icon')
 
     $('.gotoLink').before(iconElement);
 });
-

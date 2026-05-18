@@ -2,7 +2,9 @@ $(document).ready(function() {
     let dataUpdated = false
 
     function updateData() {
-        if ($(window).width() <= 1000) {
+        const isMobile = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+
+        if (isMobile) {
             //run just once
             if(!dataUpdated) {
                 $("section").each(function() {
