@@ -141,7 +141,7 @@
 
     section#olx .square:first-of-type {
         width: 30%;
-        height: 30%;
+        height: 50%;
         top: 35%;
         right: 2%;
     }
@@ -174,15 +174,15 @@
 
     section#algorithms-structures .square:first-of-type {
         width: 30%;
-        bottom: 5%;
-        height: 40%;
+        bottom: 10%;
+        height: 55%;
         left: 5%;
     }
 
     section#algorithms-structures .square:last-of-type {
         top: 5%;
         left: 15%;
-        width: 35%;
+        width: 50%;
         height: 40%;
     }
 
@@ -291,10 +291,11 @@
         width: 27%;
         top: 5%;
         left: 15%;
+        height: 50%;
     }
 
     section#weather .square:last-of-type {
-        width: 50%;
+        width: 40%;
         bottom: 3%;
         right: 25%;
         top: 30%;
@@ -354,7 +355,7 @@
     section#go-arch .square:last-of-type {
         left: 5%;
         width: 25%;
-        height:35%;
+        height:50%;
     }
 
     section#go-arch .square:last-of-type .transparent {
@@ -376,7 +377,7 @@
         top: 10%;
         left: 10%;
         width: 25%;
-        height: 40%;
+        height: 50%;
         
     }
     section#banner .square .transparent {
