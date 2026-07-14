@@ -1,6 +1,6 @@
-@media (max-width: 1000px) and (hover: none) and (pointer: coarse) {
+@media (max-width: 1000px) {
     header {
-        font-size: 400%;
+        font-size: 300%;
     }
     .mobile-img {
         display: flex;
